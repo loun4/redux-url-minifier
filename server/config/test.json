@@ -1,0 +1,16 @@
+{
+  "db": {
+    "file": "db.test.json",
+    "options": {
+      "autoload": true,
+      "autosave": true,
+      "autosaveInterval": 4000
+    }
+  },
+
+  "server": {
+    "port": 4300
+  },
+
+  "shortenerSecretKey": "KbPeShVm"
+}

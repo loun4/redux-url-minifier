@@ -1,0 +1,40 @@
+{
+  "name": "url_shortener_api",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-json-validator-middleware": "^1.2.1",
+    "hashids": "^1.1.4",
+    "lokijs": "^1.5.3"
+  },
+  "devDependencies": {
+    "ava": "^1.0.0-beta.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "supertest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=9.11.1"
+  },
+  "ava": {
+    "files": [
+      "server/test/**/*.js"
+    ],
+    "sources": [
+      "**/*.{js,jsx}",
+      "!dist/**/*"
+    ],
+    "concurrency": 5,
+    "failFast": true,
+    "failWithoutAssertions": false,
+    "tap": true,
+    "compileEnhancements": false
+  },
+  "scripts": {
+    "test": "export NODE_ENV=test && ava --watch",
+    "start": "export NODE_ENV=developement && nodemon --inspect -e js,json ./server/api-starter.js"
+  }
+}

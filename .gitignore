@@ -1,0 +1,7 @@
+
+node_modules
+.DS_Store
+server/resources/db.json
+server/resources/db.local.json
+server/resources/db.test.json
+server/config/local.json
