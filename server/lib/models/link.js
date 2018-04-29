@@ -9,7 +9,7 @@ const LinkSchema = {
   required: ['linkURL'],
   properties: {
     id: {
-      type: ['integer', 'null'],
+      type: ['string', 'null'],
       default: null,
     },
     linkURL: {
@@ -25,16 +25,13 @@ const { properties: definitions } = LinkSchema;
 class Link {
   constructor(raw) {
     const {
-      $loki, // raw lokiJS ID
+      $loki = definitions.id.default, // raw lokiJS ID
       meta = { created: null }, // raw lokiJS meta, include create date
       linkURL = definitions.linkURL.default,
     } = raw;
 
-    const id = $loki || definitions.id.default;
-
     this.properties = {
-      shortURL: shortener.encode(id),
-      id,
+      id: shortener.encode($loki),
       linkURL,
     };
 

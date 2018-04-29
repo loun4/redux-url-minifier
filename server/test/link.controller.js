@@ -45,7 +45,7 @@ test('Create link', async t => {
   .send({ linkURL: 'http://www.google.fr' });
 
   t.is(res.status, 200);
-  t.is(res.body.id, 1);
+  t.is(res.body.id, "Og");
   t.is(res.body.linkURL, 'http://www.google.fr');
 });
 
@@ -56,7 +56,7 @@ test('Avoid multiple insert for the same link', async t => {
   .send({ linkURL: 'http://www.fasterize.com' });
 
   t.is(res.status, 200);
-  t.is(res.body.id, 2);
+  t.is(res.body.id, "6Q");
   t.is(res.body.linkURL, 'http://www.fasterize.com');
 
   // second post
@@ -65,17 +65,8 @@ test('Avoid multiple insert for the same link', async t => {
   .send({ linkURL: 'http://www.fasterize.com' });
 
   t.is(res.status, 200);
-  t.is(res.body.id, 2);
+  t.is(res.body.id, "6Q");
   t.is(res.body.linkURL, 'http://www.fasterize.com');
-});
-
-test('Create short url', async t => {
-  let res = await t.context
-  .post('/link')
-  .send({ linkURL: 'https://www.amazon.com/gp/goldbox/' });
-
-  t.is(res.status, 200);
-  t.is(res.body.shortURL, 'bN');
 });
 
 test.after(t => {
