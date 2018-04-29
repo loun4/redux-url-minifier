@@ -33,7 +33,6 @@ const handlers = {
 const errorHandler = (err, req, res, next) => {
   const handler = handlers[err.name] || handlers.UnHandledError;
   const { status, errors } = handler(err);
-  // console.log(err);
   res.status(status).send(errors);
   next();
 };

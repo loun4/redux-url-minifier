@@ -62,8 +62,12 @@ const LoadByLinkURL = (collection, linkURL) => {
   return doc === null ? null : new Link(doc);
 };
 
+const LoadLinks = collection =>
+  collection.find().map(doc => new Link(doc));
+
 module.exports = {
-  LinkSchema,
   Link,
+  LinkSchema,
   LoadByLinkURL,
+  LoadLinks,
 };

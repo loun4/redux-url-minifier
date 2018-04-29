@@ -12,5 +12,11 @@
     "port": 4300
   },
 
-  "shortenerSecretKey": "KbPeShVm"
+  "shortenerSecretKey": "KbPeShVm",
+
+  "credentials": {
+    "users": {
+      "test": "test"
+    }
+  }
 }
