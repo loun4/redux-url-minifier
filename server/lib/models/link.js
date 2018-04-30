@@ -2,8 +2,6 @@
 const { InternalError } = require('../utils/error');
 const shortener = require('../utils/shortener');
 
-const DbInsertError = 'db insert error';
-const DbRemoveError = 'db insert error';
 
 const LinkPackage = (db) => {
   const collection = db.getCollection('links');
@@ -21,6 +19,10 @@ const LinkPackage = (db) => {
         format: 'uri',
         default: '',
       },
+      visit: {
+        type: 'integer',
+        default: 0,
+      },
     },
   };
 
@@ -32,10 +34,12 @@ const LinkPackage = (db) => {
         $loki = definitions.id.default, // raw lokiJS ID
         meta = { created: null }, // raw lokiJS meta, include create date
         linkURL = definitions.linkURL.default,
+        visit = definitions.visit.default,
       } = raw;
 
       this.properties = {
         id: shortener.encode($loki),
+        visit,
         linkURL,
       };
 
@@ -43,11 +47,28 @@ const LinkPackage = (db) => {
       this.meta = meta;
     }
 
+    incrementVisit() {
+      this.properties.visit += 1;
+      return this;
+    }
+
     create() {
       return new Promise((resolve, reject) => {
-        const doc = collection.insert(this.toDbDocument());
+        const { $loki, visit, ...dbDoc } = this.toDbDocument();
+        const doc = collection.insert(dbDoc);
         if (!doc) {
-          return reject({ name: InternalError, errors: DbInsertError });
+          return reject({ name: InternalError, errors: db.DbInsertError });
+        }
+
+        return resolve(new Link(doc));
+      });
+    }
+
+    update() {
+      return new Promise((resolve, reject) => {
+        const doc = collection.update(this.toDbDocument());
+        if (!doc) {
+          return reject({ name: InternalError, errors: db.DbUpdateError });
         }
 
         return resolve(new Link(doc));
@@ -58,7 +79,7 @@ const LinkPackage = (db) => {
       return new Promise((resolve, reject) => {
         const doc = collection.remove(this.toDbDocument());
         if (!doc) {
-          return reject({ name: InternalError, errors: DbRemoveError });
+          return reject({ name: InternalError, errors: db.DbRemoveError });
         }
 
         return resolve({});
@@ -66,11 +87,12 @@ const LinkPackage = (db) => {
     }
 
     toDbDocument() {
-      const { linkURL } = this.properties;
+      const { id, ...dbProps } = this.properties;
 
       return {
         ...this.rawId && { $loki: this.rawId },
-        linkURL,
+        ...dbProps,
+        meta: this.meta,
       };
     }
 

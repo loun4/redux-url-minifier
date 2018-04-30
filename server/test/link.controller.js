@@ -6,6 +6,7 @@ const path = require('path');
 const Db = require("../lib/connectivity/db");
 const config = require('../lib/config');
 const server = require('../lib/server');
+const shortener = require('../lib/utils/shortener');
 const dbFile = path.resolve(__dirname, `../resources/${config.db.file}`);
 
 const [login, password] = Object.entries(config.credentials.users).pop();
@@ -100,6 +101,30 @@ test('Delete link', async t => {
 
   t.deepEqual(res2.body, {});
   t.is(res2.status, 200);
+});
+
+test('Throw 401 on get if wrong id param', async t => {
+  const res = await t.context.app.get('/link/wrong');
+  t.is(res.status, 401);
+});
+
+test('Redirect 301 to link url', async t => {
+  const res = await t.context.app.post('/link').send({ linkURL: 'http://www.github.com' });
+  const res2 = await t.context.app.get(`/link/${res.body.id}`);
+
+  t.is(res2.header.location, 'http://www.github.com');
+  t.is(res2.status, res2.status);
+});
+
+test('Increment visit', async t => {
+  const res = await t.context.app.post('/link').send({ linkURL: 'https://news.ycombinator.com/' });
+
+  const res2 = await t.context.app.get(`/link/${res.body.id}`);
+  const res3 = await t.context.app.get(`/link/${res.body.id}`);
+  const res4 = await t.context.app.get(`/link/${res.body.id}`);
+
+  const doc = t.context.db.getCollection("links").get(shortener.decode(res.body.id));
+  t.is(doc.visit, 3);
 });
 
 

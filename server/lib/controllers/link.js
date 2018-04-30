@@ -19,8 +19,8 @@ const LinkRoutes = (db) => {
 
   const router = Router();
 
-  router.post('/link', validate(LinkSchema), (req, res, next) => {
-    return LoadByLinkURL(req.body.linkURL)
+  router.post('/link', validate(LinkSchema), (req, res, next) => (
+    LoadByLinkURL(req.body.linkURL)
       .then((link) => {
         if (link !== null) {
           return link;
@@ -30,14 +30,31 @@ const LinkRoutes = (db) => {
         return newLink.create();
       })
       .then(link => res.send(link.toJSON()))
-      .catch(next);
-  });
+      .catch(next)));
 
   router.get('/link', basicAuth(credentials), (req, res, next) =>
     LoadLinks()
       .then(links => links.map(link => link.toJSON()))
       .then(links => res.send(links))
       .catch(next));
+
+  router.get('/link/:encodedId', (req, res, next) => {
+    const id = shortener.decode(req.params.encodedId);
+    if (!id) {
+      return next({ name: NotAuthorizedError });
+    }
+
+    return LoadById(id)
+      .then((link) => {
+        if (link === null) {
+          return Promise.reject(({ name: NotFoundError }));
+        }
+
+        return link.incrementVisit().update();
+      })
+      .then(link => res.redirect(301, link.toJSON().linkURL))
+      .catch(next);
+  });
 
   router.delete('/link/:encodedId', basicAuth(credentials), (req, res, next) => {
     const id = shortener.decode(req.params.encodedId);

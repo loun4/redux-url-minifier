@@ -5,11 +5,19 @@ const fs = require('fs');
 const { db: dbConf } = require('../config');
 
 const DbFileDoesNotExistError = 'db file does not exist';
+const DbInsertError = 'db insert error';
+const DbRemoveError = 'db remove error';
+const DbUpdateError = 'db update error';
 
 const initializer = (db) => {
   if (!db.getCollection('links')) {
     db.addCollection('links', { unique: ['id'] });
   }
+
+  /* eslint-disable no-param-reassign */
+  db.DbInsertError = DbInsertError;
+  db.DbRemoveError = DbRemoveError;
+  db.DbUpdateError = DbUpdateError;
 
   return db;
 };

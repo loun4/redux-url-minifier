@@ -48,6 +48,10 @@ const handlers = {
 const errorHandler = (err, req, res, next) => {
   const handler = handlers[err.name] || handlers.UnHandledError;
   const { status, errors } = handler(err);
+  if (status === StatusInternalError) {
+    /* eslint-disable no-console */
+    console.log('CRITICAL', err);
+  }
 
   res.status(status).send(errors);
   next();
