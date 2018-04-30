@@ -35,7 +35,7 @@
     "compileEnhancements": false
   },
   "scripts": {
-    "test": "export NODE_ENV=test && ava --watch",
-    "start": "export NODE_ENV=developement && nodemon --inspect -e js,json ./server/api-starter.js"
+    "test": "export NODE_ENV=test && ava",
+    "start": "export NODE_ENV=developement && nodemon --watch ./server ./server/api-starter.js"
   }
 }
