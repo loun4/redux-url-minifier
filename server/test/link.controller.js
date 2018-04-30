@@ -8,6 +8,7 @@ const config = require('../lib/config');
 const server = require('../lib/server');
 const dbFile = path.resolve(__dirname, `../resources/${config.db.file}`);
 
+const [login, password] = Object.entries(config.credentials.users).pop();
 
 test.before(async t => {
   if (fs.existsSync(dbFile)) {
@@ -23,8 +24,7 @@ test.before(async t => {
   }
 });
 
-
-test('Throw 412 if invalid link data on create', async t => {
+test('Throw 412 on create if invalid link data', async t => {
   const res = await t.context.app.post('/link').send({});
 
   t.is(res.status, 412);
@@ -76,8 +76,6 @@ test('Send all links', async t => {
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.yahoo.com' });
   const res2 = await t.context.app.post('/link').send({ linkURL: 'http://www.amazon.com' });
 
-  const [login, password] = Object.entries(config.credentials.users).pop();
-
   const res3 = await t.context.app
   .get('/link')
   .auth(login, password)
@@ -85,6 +83,24 @@ test('Send all links', async t => {
   t.true(res3.body.some(({linkURL}) => linkURL === 'http://www.yahoo.com'));
   t.true(res3.body.some(({linkURL}) => linkURL === 'http://www.amazon.com'));
   t.is(res3.status, 200);
+});
+
+test('Throw 404 on delete if wrong id param', async t => {
+  const res = await t.context.app.delete('/link/wrong').auth(login, password);
+  t.is(res.status, 404);
+});
+
+test('Throw 404 on delete if link not found', async t => {
+  const res = await t.context.app.delete('/link/0MX').auth(login, password);
+  t.is(res.status, 404);
+});
+
+test('Delete link', async t => {
+  const res = await t.context.app.post('/link').send({ linkURL: 'http://www.github.com' });
+  const res2 = await t.context.app.delete(`/link/${res.body.id}`).auth(login, password);
+
+  t.deepEqual(res2.body, {});
+  t.is(res2.status, 200);
 });
 
 

@@ -1,8 +1,11 @@
 
 const InternalError = 'InternalError';
+const NotFoundError = 'NotFoundError';
 
 const StatusPreconditionFailed = 412;
+const StatusNotFound = 404;
 const StatusInternalError = 500;
+
 
 const handlers = {
   JsonSchemaValidationError: ({ validationErrors: { body } }) => {
@@ -19,6 +22,11 @@ const handlers = {
     };
   },
 
+  NotFoundError: (errors = []) => ({
+    status: StatusNotFound,
+    errors,
+  }),
+
   InternalError: (errors = []) => ({
     status: StatusInternalError,
     errors,
@@ -33,6 +41,7 @@ const handlers = {
 const errorHandler = (err, req, res, next) => {
   const handler = handlers[err.name] || handlers.UnHandledError;
   const { status, errors } = handler(err);
+
   res.status(status).send(errors);
   next();
 };
@@ -40,4 +49,5 @@ const errorHandler = (err, req, res, next) => {
 module.exports = {
   errorHandler,
   InternalError,
+  NotFoundError,
 };

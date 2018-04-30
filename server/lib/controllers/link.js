@@ -1,10 +1,19 @@
 
 const { Router } = require('express');
-const basicAuth = require('express-basic-auth')
+const basicAuth = require('express-basic-auth');
+
 const { credentials } = require('../config');
-const { Link, LinkSchema, LoadLinks, LoadByLinkURL } = require('../models/link');
-const { errorHandler } = require('../utils/error');
+const { errorHandler, NotFoundError } = require('../utils/error');
+const shortener = require('../utils/shortener');
 const validate = require('../utils/validator');
+
+const {
+  Link,
+  LinkSchema,
+  LoadLinks,
+  LoadByLinkURL,
+  LoadById,
+} = require('../models/link');
 
 
 const LinkRoutes = (db) => {
@@ -19,7 +28,7 @@ const LinkRoutes = (db) => {
     }
 
     link = new Link(req.body);
-    return link.save(linksCollection)
+    return link.create(linksCollection)
       .then(link => res.send(link.toJSON()))
       .catch(next);
   });
@@ -29,6 +38,24 @@ const LinkRoutes = (db) => {
     const links = LoadLinks(linksCollection).map(link => link.toJSON());
 
     res.send(links);
+  });
+
+  router.delete('/link/:encodedId', basicAuth(credentials), (req, res, next) => {
+    const id = shortener.decode(req.params.encodedId);
+    if (!id) {
+      return next({ name: NotFoundError });
+    }
+
+    const linksCollection = db.getCollection('links');
+
+    const link = LoadById(linksCollection, id);
+    if (!link) {
+      return next({ name: NotFoundError });
+    }
+
+    return link.remove(linksCollection)
+      .then(() => res.send({}))
+      .catch(next);
   });
 
   router.use(errorHandler);
