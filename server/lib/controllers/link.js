@@ -3,7 +3,7 @@ const { Router } = require('express');
 const basicAuth = require('express-basic-auth');
 
 const { credentials } = require('../config');
-const { errorHandler, NotFoundError } = require('../utils/error');
+const { errorHandler, NotFoundError, NotAuthorizedError } = require('../utils/error');
 const shortener = require('../utils/shortener');
 const validate = require('../utils/validator');
 const LinkPackage = require('../models/link');
@@ -20,34 +20,39 @@ const LinkRoutes = (db) => {
   const router = Router();
 
   router.post('/link', validate(LinkSchema), (req, res, next) => {
-    let link = LoadByLinkURL(req.body.linkURL);
-    if (link !== null) {
-      return res.send(link.toJSON());
-    }
+    return LoadByLinkURL(req.body.linkURL)
+      .then((link) => {
+        if (link !== null) {
+          return link;
+        }
 
-    link = new Link(req.body);
-    return link.create()
+        const newLink = new Link(req.body);
+        return newLink.create();
+      })
       .then(link => res.send(link.toJSON()))
       .catch(next);
   });
 
-  router.get('/link', basicAuth(credentials), (req, res) => {
-    const links = LoadLinks().map(link => link.toJSON());
-    res.send(links);
-  });
+  router.get('/link', basicAuth(credentials), (req, res, next) =>
+    LoadLinks()
+      .then(links => links.map(link => link.toJSON()))
+      .then(links => res.send(links))
+      .catch(next));
 
   router.delete('/link/:encodedId', basicAuth(credentials), (req, res, next) => {
     const id = shortener.decode(req.params.encodedId);
     if (!id) {
-      return next({ name: NotFoundError });
+      return next({ name: NotAuthorizedError });
     }
 
-    const link = LoadById(id);
-    if (!link) {
-      return next({ name: NotFoundError });
-    }
+    return LoadById(id)
+      .then((link) => {
+        if (link === null) {
+          return Promise.reject(({ name: NotFoundError }));
+        }
 
-    return link.remove()
+        return link.remove();
+      })
       .then(() => res.send({}))
       .catch(next);
   });

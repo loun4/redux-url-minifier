@@ -82,19 +82,32 @@ const LinkPackage = (db) => {
     }
   }
 
-  const LoadById = (id) => {
-    const doc = collection.get(id);
-    return doc === null ? null : new Link(doc);
-  };
+  const LoadById = id => (
+    new Promise((resolve) => {
+      const doc = collection.get(id);
+      if (doc === null) {
+        return resolve(null);
+      }
 
-  const LoadByLinkURL = (linkURL) => {
-    const doc = collection.findOne({ linkURL });
-    return doc === null ? null : new Link(doc);
-  };
+      return resolve(new Link(doc));
+    })
+  );
 
-  const LoadLinks = () =>
-    collection.find().map(doc => new Link(doc));
+  const LoadByLinkURL = linkURL => (
+    new Promise((resolve) => {
+      const doc = collection.findOne({ linkURL });
+      if (doc === null) {
+        return resolve(null);
+      }
 
+      return resolve(new Link(doc));
+    })
+  );
+
+  const LoadLinks = () => (
+    new Promise(resolve =>
+      resolve(collection.find().map(doc => new Link(doc))))
+  );
 
   return {
     LinkSchema,

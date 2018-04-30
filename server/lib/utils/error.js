@@ -1,10 +1,12 @@
 
 const InternalError = 'InternalError';
 const NotFoundError = 'NotFoundError';
+const NotAuthorizedError = 'NotAuthorizedError';
 
 const StatusPreconditionFailed = 412;
 const StatusNotFound = 404;
 const StatusInternalError = 500;
+const StatusNotAuthorized = 401;
 
 
 const handlers = {
@@ -32,6 +34,11 @@ const handlers = {
     errors,
   }),
 
+  NotAuthorizedError: (errors = []) => ({
+    status: StatusNotAuthorized,
+    errors,
+  }),
+
   UnHandledError: (errors = []) => ({
     status: StatusInternalError,
     errors,
@@ -50,4 +57,5 @@ module.exports = {
   errorHandler,
   InternalError,
   NotFoundError,
+  NotAuthorizedError,
 };
