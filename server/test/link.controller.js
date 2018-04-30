@@ -44,7 +44,6 @@ test('Create link', async t => {
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.google.fr' });
 
   t.is(res.status, 200);
-  t.is(res.body.id, "Og");
   t.is(res.body.linkURL, 'http://www.google.fr');
 });
 
@@ -53,7 +52,6 @@ test('Avoid multiple insert for the same link', async t => {
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.fasterize.com' });
 
   t.is(res.status, 200);
-  t.is(res.body.id, "6Q");
   t.is(res.body.linkURL, 'http://www.fasterize.com');
 
   // second post
@@ -61,8 +59,9 @@ test('Avoid multiple insert for the same link', async t => {
   .send({ linkURL: 'http://www.fasterize.com' });
 
   t.is(res2.status, 200);
-  t.is(res2.body.id, "6Q");
   t.is(res2.body.linkURL, 'http://www.fasterize.com');
+
+  t.is(res.body.id, res2.body.id);
 });
 
 test('Throw 401 if missing authentication', async t => {
