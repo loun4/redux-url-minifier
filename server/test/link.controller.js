@@ -37,7 +37,7 @@ test('Throw 412 on create if invalid link data', async t => {
 
   t.is(res2.status, 412);
   t.deepEqual(res2.body, [
-    { field: 'linkURL', message: 'should match format "uri"' }
+    { field: 'linkURL', message: 'should match format "url"' }
   ]);
 });
 

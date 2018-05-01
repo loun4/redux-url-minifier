@@ -16,7 +16,7 @@ const LinkPackage = (db) => {
       },
       linkURL: {
         type: 'string',
-        format: 'uri',
+        format: 'url',
         default: '',
       },
       visit: {
