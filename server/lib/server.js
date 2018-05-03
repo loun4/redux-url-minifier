@@ -2,6 +2,7 @@
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const config = require('./config');
 const LinkRoutes = require('./controllers/link');
 
@@ -11,6 +12,7 @@ const start = (db) => {
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json({ limit: '200kb' }));
+  app.use(cors());
   app.use(router);
   app.use(LinkRoutes(db));
   http.createServer(app).listen(config.server.port);

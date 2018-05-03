@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-basic-auth": "^1.1.5",
     "express-json-validator-middleware": "^1.2.1",
