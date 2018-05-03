@@ -1,5 +1,5 @@
 
-import fetch from 'cross-fetch';
+import 'cross-fetch';
 import store from 'store2';
 import querystring from 'querystring';
 
@@ -42,11 +42,9 @@ class Client {
     store.session.remove('credentials');
   }
 
-  request({
-    entity = '/', method = 'GET', auth = false, query = {},
-  }) {
+  request(options) {
     return new Promise((resolve, reject) => {
-      const { url, ...params } = this.parseRequestParams(entity, method, auth, query);
+      const { url, ...params } = this.parseRequestParams(options);
 
       fetch(url, params)
         .then((res) => {
@@ -66,13 +64,19 @@ class Client {
     });
   }
 
-  parseRequestParams(entity, method, auth, query) {
+  parseRequestParams({
+    endpoint = '/',
+    method = 'GET',
+    auth = false,
+    body = {},
+    query = {},
+  }) {
     const credentials = this.getCredentials();
     const basicAuth = auth && credentials ? {
       Authorization: `Basic ${btoa(`${credentials.login}:${credentials.password}`)}`,
     } : null;
 
-    let url = `${ENDPOINT || '/'}${entity}`;
+    let url = `${ENDPOINT || ''}/${endpoint}`;
     if (Object.keys(query).length > 0) {
       url += `?${querystring.stringify(query)}`;
     }
@@ -80,7 +84,7 @@ class Client {
     return {
       url,
       method,
-      credentials: 'include',
+      body,
       headers: {
         ...basicAuth,
       },

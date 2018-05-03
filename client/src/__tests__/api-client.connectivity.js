@@ -37,12 +37,18 @@ test('Remove credentials', () => {
 
 test('Parse params for API request', () => {
   Client.saveCredentials(credentials);
-  const params = Client.parseRequestParams('link', 'GET', true, { active: false });
+
+  const params = Client.parseRequestParams({
+    endpoint: 'link',
+    method: 'GET',
+    auth: true,
+    query: { active: false },
+  });
 
   expect(params).toEqual({
     url: '/link?active=false',
     method: 'GET',
-    credentials: 'include',
+    body: {},
     headers: {
       Authorization: 'Basic Zm9vOmJhcg==',
     },
