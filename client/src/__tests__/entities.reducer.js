@@ -5,88 +5,92 @@ const links = [
   {
     id: 'anId',
     linkURL: 'http://www.google.fr',
+    shortURL: '/link/anId',
   },
   {
     id: 'anId2',
     linkURL: 'http://www.github.com',
+    shortURL: '/link/anId2',
   },
 ];
 
 const newLink = {
   id: 'anId3',
   linkURL: 'http://www.yahoo.com',
+  shortURL: '/link/anId3',
 };
 
 const updatedLink = {
   id: 'anId3',
   linkURL: 'http://www.gitlab.com',
+  shortURL: '/link/anId3',
 };
 
 const populatedState = {
   link: {
     isFetching: false,
     isSaving: true,
-    data: links,
+    models: links,
   },
 };
 
 test('handle REQUEST_ALL_DATA', () => {
-  const loadingAction = { type: 'REQUEST_ALL_DATA', entity: 'link' };
+  const action = { type: 'REQUEST_ALL_DATA', entity: 'link' };
 
-  expect(entitiesReducer(undefined, loadingAction)).toEqual({
-    link: { isFetching: true, isSaving: false, data: [] },
+  expect(entitiesReducer(undefined, action)).toEqual({
+    link: { isFetching: true, isSaving: false, models: [] },
   });
 });
 
 test('handle RECEIVE_ALL_DATA', () => {
-  const receivingAction = { type: 'RECEIVE_ALL_DATA', entity: 'link', data: links };
+  const action = { type: 'RECEIVE_ALL_DATA', entity: 'link', data: links };
 
-  expect(entitiesReducer(undefined, receivingAction)).toEqual({
-    link: { isFetching: false, isSaving: false, data: links },
+  expect(entitiesReducer(undefined, action)).toEqual({
+    link: { isFetching: false, isSaving: false, models: links },
   });
 });
 
 test('handle REQUEST_SAVE_DATA', () => {
-  const savingAction = { type: 'REQUEST_SAVE_DATA', entity: 'link' };
+  const action = { type: 'REQUEST_SAVE_DATA', entity: 'link' };
 
-  expect(entitiesReducer(undefined, savingAction)).toEqual({
-    link: { isFetching: false, isSaving: true, data: [] },
+  expect(entitiesReducer(undefined, action)).toEqual({
+    link: { isFetching: false, isSaving: true, models: [] },
   });
 });
 
 test('handle RECEIVE_NEW_DATA', () => {
-  const receivingAction = { type: 'RECEIVE_NEW_DATA', entity: 'link', data: newLink };
+  const action = { type: 'RECEIVE_NEW_DATA', entity: 'link', data: newLink };
 
-  expect(entitiesReducer(populatedState, receivingAction)).toEqual({
-    link: { isFetching: false, isSaving: false, data: links.concat(newLink) },
+  expect(entitiesReducer(populatedState, action)).toEqual({
+    link: { isFetching: false, isSaving: false, models: links.concat(newLink) },
   });
 });
 
 test('handle RECEIVE_UPDATE_DATA', () => {
-  const receivingAction = { type: 'RECEIVE_UPDATE_DATA', entity: 'link', data: updatedLink };
+  const action = { type: 'RECEIVE_UPDATE_DATA', entity: 'link', data: updatedLink };
   const state = {
     link: {
       ...populatedState.link,
-      data: populatedState.link.data.concat(newLink),
+      models: populatedState.link.models.concat(newLink),
     },
   };
 
-  expect(entitiesReducer(state, receivingAction)).toEqual({
-    link: { isFetching: false, isSaving: false, data: links.concat(updatedLink) },
+  expect(entitiesReducer(state, action)).toEqual({
+    link: { isFetching: false, isSaving: false, models: links.concat(updatedLink) },
   });
 });
 
 test('handle RECEIVE_REMOVE_DATA', () => {
-  const receivingAction = { type: 'RECEIVE_REMOVE_DATA', entity: 'link', data: links[0] };
+  const action = { type: 'RECEIVE_REMOVE_DATA', entity: 'link', data: links[0] };
   const state = {
     link: {
       ...populatedState.link,
-      data: links,
+      models: links,
     },
   };
 
-  expect(entitiesReducer(state, receivingAction)).toEqual({
-    link: { isFetching: false, isSaving: false, data: links.slice(1) },
+  expect(entitiesReducer(state, action)).toEqual({
+    link: { isFetching: false, isSaving: false, models: links.slice(1) },
   });
 });
 

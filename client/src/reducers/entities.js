@@ -8,21 +8,35 @@ import {
   RECEIVE_REMOVE_DATA,
 } from '../actions/api';
 
+const { REACT_APP_REST_URL: ENDPOINT } = process.env;
+
+const Models = {
+  link: data => ({
+    ...data,
+    get shortURL() {
+      return `${ENDPOINT || ''}/link/${data.id}`;
+    },
+  }),
+};
+
 const initialEntityState = {
   isFetching: false,
   isSaving: false,
-  data: [],
+  models: [],
 };
 
-const initialStates = {
+const initialState = {
   link: initialEntityState,
+  // ... other entities
 };
 
 const entity = (
-  state = initialStates,
-  { type, entity, data },
+  state = initialState,
+  { type, entity, data: rawData },
 ) => {
   const entityState = state[entity];
+  const EntityModel = Models[entity];
+
   switch (type) {
     case REQUEST_ALL_DATA:
       return {
@@ -39,7 +53,7 @@ const entity = (
         [entity]: {
           ...entityState,
           isFetching: false,
-          data,
+          models: rawData.map(data => EntityModel(data)),
         },
       };
 
@@ -58,7 +72,9 @@ const entity = (
         [entity]: {
           ...entityState,
           isSaving: false,
-          data: entityState.data.concat(data),
+          models: entityState.models
+            .filter(model => model.id !== rawData.id)
+            .concat(EntityModel(rawData)),
         },
       };
 
@@ -68,10 +84,11 @@ const entity = (
         [entity]: {
           ...entityState,
           isSaving: false,
-          data: entityState.data.map((item) => {
-            if (item.id === data.id) { return data; }
-            return item;
-          }),
+          models: entityState.models
+            .map((model) => {
+              if (model.id === rawData.id) { return EntityModel(rawData); }
+              return model;
+            }),
         },
       };
 
@@ -81,7 +98,8 @@ const entity = (
         [entity]: {
           ...entityState,
           isSaving: false,
-          data: entityState.data.filter(({ id }) => id !== data.id),
+          models: entityState.models
+            .filter(({ id }) => id !== rawData.id),
         },
       };
 
