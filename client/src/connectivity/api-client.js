@@ -45,7 +45,6 @@ class Client {
   request(options) {
     return new Promise((resolve, reject) => {
       const { url, ...params } = this.parseRequestParams(options);
-
       fetch(url, params)
         .then((res) => {
           if (!res.ok) {
@@ -84,8 +83,9 @@ class Client {
     return {
       url,
       method,
-      body,
+      body: JSON.stringify(body),
       headers: {
+        'Content-Type': 'application/json',
         ...basicAuth,
       },
     };

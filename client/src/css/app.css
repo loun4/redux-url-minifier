@@ -1,0 +1,23 @@
+
+#root,
+#root > .grid {
+  height: 100%;
+}
+
+.app {
+  padding: 2em;
+}
+
+.ui.form .error.message,
+.ui.form .success.message,
+.ui.form .warning.message {
+  display: block;
+}
+
+.ui.separator {
+  margin-bottom: 1em;
+}
+
+.rt-table {
+  min-height: 130px;
+}

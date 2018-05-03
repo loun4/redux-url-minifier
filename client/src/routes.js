@@ -5,8 +5,8 @@ import { Router, Route } from 'react-enroute';
 import PropTypes from 'prop-types';
 import RouterService from './utils/router-service';
 import configureStore from './store';
-import App from './pages/app';
-import ShortenerForm from './pages/shortener-form';
+import App from './containers/app';
+import Main from './containers/main';
 
 const store = configureStore();
 
@@ -14,8 +14,7 @@ const RoutesHandlers = props => (
   <Provider store={store}>
     <Router {...props}>
       <Route path="" component={App}>
-        <Route path="/" component={ShortenerForm} />
-        <Route path="/admin" component={ShortenerForm} />
+        <Route path="/" component={Main} />
       </Route>
     </Router>
   </Provider>

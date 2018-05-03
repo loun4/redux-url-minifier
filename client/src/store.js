@@ -10,7 +10,7 @@ const loggerMiddleware = createLogger({
 });
 
 const forms = createForms({
-  shortenerForm: {
+  linkForm: {
     linkURL: '',
   },
 });
@@ -19,7 +19,7 @@ export default function configureStore(preloadedState) {
   return createStore(
     combineReducers({
       ...forms,
-      ...entities,
+      entities,
     }),
     preloadedState,
     applyMiddleware(

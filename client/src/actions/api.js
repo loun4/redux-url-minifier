@@ -81,6 +81,7 @@ export const saveEntityData = ({
   return Client.request({
     method: updateMode ? 'PUT' : 'POST',
     endpoint: updateMode ? `${entity}/${model.id}` : entity,
+    body: model,
     auth,
     query,
   })
@@ -88,7 +89,6 @@ export const saveEntityData = ({
       if (updateMode) {
         return dispatch(receiveUpdateData(entity, data));
       }
-
       return dispatch(receiveNewData(entity, data));
     });
 };
