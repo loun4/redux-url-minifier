@@ -6,7 +6,7 @@ import 'react-table/react-table.css';
 
 const COLUMNS = [{
   Header: 'Short URL',
-  accessor: 'id',
+  accessor: 'shortURL',
 }, {
   Header: 'URL',
   accessor: 'linkURL',

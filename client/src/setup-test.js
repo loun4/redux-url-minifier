@@ -7,3 +7,5 @@ global.fetch = require('jest-fetch-mock');
 configure({
   adapter: new Adaptar(),
 });
+
+global.document.execCommand = jest.fn();

@@ -1,21 +1,19 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-const { REACT_APP_REST_URL: ENDPOINT } = process.env;
 
 export default class LinkItem extends Component {
   static propTypes = {
     link: PropTypes.shape({
       id: PropTypes.string,
       linkURL: PropTypes.string,
+      shortURL: PropTypes.string,
       meta: PropTypes.shape({}),
     }).isRequired,
   };
 
   state = {
-    shortURL: `${ENDPOINT}/link/${this.props.link.id}`,
     isCopied: false,
   };
 
@@ -26,12 +24,14 @@ export default class LinkItem extends Component {
     fakeField.select();
     document.execCommand('copy');
     fakeField.remove();
+
     this.setState({ isCopied: true }, () =>
       setTimeout(() => this.setState({ isCopied: false }), 1000));
   }
 
   render() {
-    const { shortURL, isCopied } = this.state;
+    const { link: { shortURL } } = this.props;
+    const { isCopied } = this.state;
 
     return (
       <div className="ui buttons">
