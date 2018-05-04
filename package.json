@@ -23,7 +23,7 @@
   },
   "ava": {
     "files": [
-      "server/test/**/*.js"
+      "server/**/*.test.js"
     ],
     "sources": [
       "**/*.{js,jsx}",

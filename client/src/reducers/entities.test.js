@@ -1,5 +1,5 @@
 
-import entitiesReducer from '../reducers/entities';
+import entitiesReducer from './entities';
 
 const links = [
   {

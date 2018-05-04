@@ -1,5 +1,5 @@
 
-const { InternalError } = require('../utils/error');
+const { InternalError } = require('../middlewares/error');
 const shortener = require('../utils/shortener');
 
 

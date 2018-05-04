@@ -2,10 +2,10 @@
 const test = require('ava');
 const fs = require('fs');
 const path = require('path');
-const Db = require("../lib/connectivity/db");
-const config = require('../lib/config');
+const Db = require('./db');
+const config = require('../config');
 
-const dbFile = path.resolve(__dirname, `../resources/${config.db.file}`);
+const dbFile = path.resolve(__dirname, `../../resources/${config.db.file}`);
 
 const deleteDbFile = t => {
   if (fs.existsSync(dbFile)) {

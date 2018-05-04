@@ -3,9 +3,9 @@ const { Router } = require('express');
 const basicAuth = require('express-basic-auth');
 
 const { credentials } = require('../config');
-const { errorHandler, NotFoundError, NotAuthorizedError } = require('../utils/error');
+const { errorHandler, NotFoundError, NotAuthorizedError } = require('../middlewares/error');
 const shortener = require('../utils/shortener');
-const validate = require('../utils/validator');
+const validate = require('../middlewares/validator');
 const LinkPackage = require('../models/link');
 
 const LinkRoutes = (db) => {

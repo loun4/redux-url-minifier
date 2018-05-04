@@ -1,5 +1,5 @@
 
-import RouterService from '../utils/router-service';
+import RouterService from './router-service';
 
 
 test('Handle navigate', () => {

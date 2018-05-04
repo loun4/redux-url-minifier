@@ -1,5 +1,5 @@
 
-import { isValidURL, isNotEmptyString } from '../utils/validator';
+import { isValidURL, isNotEmptyString } from './validator';
 
 test('Validate URL', () => {
   expect(isValidURL('http://www.google.fr')).toBeTruthy();
