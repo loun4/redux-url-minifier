@@ -43,7 +43,7 @@ test('Render error if invalid link url', () => {
   const component = mount(subject);
   const form = component.find('form').first();
   const input = component.find('input').first();
-  const error = component.find('.error').first();
+  const error = component.find('.negative.message').first();
 
   input.simulate('change', { target: { value: 'worng url' } });
   form.simulate('submit');
@@ -57,7 +57,7 @@ test('Call onSubmit', () => {
 
   const form = component.find('form').first();
   const input = component.find('input').first();
-  const error = component.find('.error').first();
+  const error = component.find('.negative.message').first();
   input.simulate('change', { target: { value: 'http://www.google.fr' } });
   form.simulate('submit');
 

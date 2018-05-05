@@ -7,6 +7,7 @@ import RouterService from './utils/router-service';
 import configureStore from './store';
 import App from './containers/app';
 import Main from './containers/main';
+import Admin from './containers/admin';
 
 const store = configureStore();
 
@@ -15,6 +16,7 @@ const RoutesHandlers = props => (
     <Router {...props}>
       <Route path="" component={App}>
         <Route path="/" component={Main} />
+        <Route path="/admin" component={Admin} />
       </Route>
     </Router>
   </Provider>

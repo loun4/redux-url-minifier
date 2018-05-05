@@ -17,9 +17,9 @@ export default class LinkItem extends Component {
     isCopied: false,
   };
 
-  handleCopy = () => {
+  handleCopy = shortURL => () => {
     const fakeField = document.createElement('textarea');
-    fakeField.innerText = this.state.shortURL;
+    fakeField.innerText = shortURL;
     document.body.appendChild(fakeField);
     fakeField.select();
     document.execCommand('copy');
@@ -45,7 +45,7 @@ export default class LinkItem extends Component {
         </a>
         <div className="or" />
         <button
-          onClick={this.handleCopy}
+          onClick={this.handleCopy(shortURL)}
           className="ui vertical green button"
         >
           {isCopied ? 'Copied' : 'Copy'}
@@ -53,5 +53,5 @@ export default class LinkItem extends Component {
       </div>
     );
   }
-};
+}
 

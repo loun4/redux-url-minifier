@@ -18,10 +18,7 @@ export default class LinkForm extends Component {
       linkURL = `http://${linkURL}`;
     }
 
-    this.props.onSubmit({
-      entity: 'link',
-      model: { ...model, linkURL },
-    });
+    this.props.onSubmit({ ...model, linkURL });
   }
 
   render() {
@@ -37,6 +34,7 @@ export default class LinkForm extends Component {
             <Control.text
               model=".linkURL"
               className="field-input"
+              autoComplete="off"
               id="link"
               placeholder="Past your original url"
               validators={{ isValidURL }}

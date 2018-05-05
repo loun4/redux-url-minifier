@@ -13,7 +13,7 @@ beforeEach(() => {
     shortURL: '/link/0g',
   };
 
-  subject = <LinkItem link={link} />
+  subject = <LinkItem link={link} />;
 });
 
 test('Render link item', () => {

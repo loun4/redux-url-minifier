@@ -3,7 +3,7 @@ import React from 'react';
 import { createStore, combineReducers } from 'redux';
 import { createForms } from 'react-redux-form';
 import { Provider } from 'react-redux';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import Signin from './signin';
 

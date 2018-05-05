@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveEntityData } from '../actions/api';
 import LinkForm from '../components/link-form';
-import LinkList from '../components/link-list';
+import LinkItem from '../components/link-item';
 
 
 class MainContainer extends Component {
   static propTypes = {
-    form: PropTypes.shape({
+    linkForm: PropTypes.shape({
       linkURL: PropTypes.shape({}),
     }).isRequired,
     link: PropTypes.shape({
@@ -21,34 +21,36 @@ class MainContainer extends Component {
         meta: PropTypes.shape({}),
       })),
     }).isRequired,
-    createLink: PropTypes.func.isRequired,
+    saveEntityData: PropTypes.func.isRequired,
   }
 
-  handle() {
-
+  handleLinkCreate = (model) => {
+    this.props.saveEntityData({ entity: 'link', model });
   }
 
   render() {
-    const { form, link, createLink } = this.props;
+    const { linkForm, link } = this.props;
 
     return (
       <div>
-        <LinkForm form={form} onSubmit={createLink} />
-        <LinkList link={link} />
+        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} />
+        {link.models.length > 0 && (
+          <LinkItem link={[...link.models].shift()} />
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = ({
-  forms: { linkForm: form },
+  forms: { linkForm },
   entities: { link },
 }) => ({
-  form,
+  linkForm,
   link,
 });
 
 
 export default connect(mapStateToProps, {
-  createLink: saveEntityData,
+  saveEntityData,
 })(MainContainer);

@@ -65,6 +65,7 @@ const signinForm = ({ onSubmit, form: { login, password } }) => {
           <Errors
             className="ui negative message"
             model="signinForm"
+            show="submitFailed"
             component={() => <span>Connexion refused, please check your credentials</span>}
           />
         </Form>
