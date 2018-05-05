@@ -19,6 +19,25 @@ const Models = {
   }),
 };
 
+const addNewModel = (models, newModel) => {
+  let mutateModels = [...models];
+  mutateModels = mutateModels.filter(({ id }) => id !== newModel.id);
+  mutateModels.unshift(newModel);
+  return mutateModels;
+};
+
+const updateModel = (models, updateModel) =>
+  models
+    .map((model) => {
+      if (model.id === updateModel.id) { return updateModel; }
+      return model;
+    });
+
+const removeModel = (models, removedId) =>
+  models
+    .filter(({ id }) => id !== removedId);
+
+
 const initialEntityState = {
   isFetching: false,
   isSaving: false,
@@ -72,9 +91,7 @@ const entity = (
         [entity]: {
           ...entityState,
           isSaving: false,
-          models: entityState.models
-            .filter(model => model.id !== rawData.id)
-            .concat(EntityModel(rawData)),
+          models: addNewModel(entityState.models, EntityModel(rawData)),
         },
       };
 
@@ -84,11 +101,7 @@ const entity = (
         [entity]: {
           ...entityState,
           isSaving: false,
-          models: entityState.models
-            .map((model) => {
-              if (model.id === rawData.id) { return EntityModel(rawData); }
-              return model;
-            }),
+          models: updateModel(entityState.models, EntityModel(rawData)),
         },
       };
 
@@ -98,8 +111,7 @@ const entity = (
         [entity]: {
           ...entityState,
           isSaving: false,
-          models: entityState.models
-            .filter(({ id }) => id !== rawData.id),
+          models: removeModel(entityState.models, rawData.id),
         },
       };
 

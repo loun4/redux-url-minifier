@@ -62,7 +62,7 @@ test('handle RECEIVE_NEW_DATA', () => {
   const action = { type: 'RECEIVE_NEW_DATA', entity: 'link', data: newLink };
 
   expect(entitiesReducer(populatedState, action)).toEqual({
-    link: { isFetching: false, isSaving: false, models: links.concat(newLink) },
+    link: { isFetching: false, isSaving: false, models: [newLink].concat(links) },
   });
 });
 
