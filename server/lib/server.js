@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config');
 const LinkRoutes = require('./controllers/link');
+const AuthenticationRoutes = require('./controllers/authentication');
 
 const start = (db) => {
   const app = express();
@@ -15,6 +16,8 @@ const start = (db) => {
   app.use(cors());
   app.use(router);
   app.use(LinkRoutes(db));
+  app.use(AuthenticationRoutes());
+
   http.createServer(app).listen(config.server.port);
 
   return app;

@@ -85,8 +85,8 @@ test('Send all links', async t => {
   t.is(res3.status, 200);
 });
 
-test('Throw 401 on delete if wrong id param', async t => {
-  const res = await t.context.app.delete('/link/wrong').auth(login, password);
+test('Throw 401 on delete if invalid id param', async t => {
+  const res = await t.context.app.delete('/link/invalid').auth(login, password);
   t.is(res.status, 401);
 });
 
@@ -129,5 +129,7 @@ test('Increment visit', async t => {
 
 
 test.after(t => {
-  fs.unlinkSync(dbFile);
-});
+  if (fs.existsSync(dbFile)) {
+    fs.unlinkSync(dbFile);
+  }}
+);
