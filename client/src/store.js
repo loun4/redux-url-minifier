@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { createForms } from 'react-redux-form';
 import entities from './reducers/entities';
+import session from './reducers/session';
 
 const loggerMiddleware = createLogger({
   predicate() { return process.env.NODE_ENV === 'development'; },
@@ -24,6 +25,7 @@ export default function configureStore(preloadedState) {
     combineReducers({
       ...forms,
       entities,
+      session,
     }),
     preloadedState,
     applyMiddleware(

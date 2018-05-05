@@ -45,6 +45,7 @@ class Client {
   request(options) {
     return new Promise((resolve, reject) => {
       const { url, ...params } = this.parseRequestParams(options);
+
       fetch(url, params)
         .then((res) => {
           if (!res.ok) {
@@ -67,7 +68,7 @@ class Client {
     endpoint = '/',
     method = 'GET',
     auth = false,
-    body = {},
+    body = null,
     query = {},
   }) {
     const credentials = this.getCredentials();
@@ -83,7 +84,7 @@ class Client {
     return {
       url,
       method,
-      body: JSON.stringify(body),
+      body: body !== null ? JSON.stringify(body) : null,
       headers: {
         'Content-Type': 'application/json',
         ...basicAuth,

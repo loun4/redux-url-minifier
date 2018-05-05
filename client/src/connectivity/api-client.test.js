@@ -48,12 +48,10 @@ test('Parse params for API request', () => {
   expect(params).toEqual({
     url: '/link?active=false',
     method: 'GET',
-    body: JSON.stringify({}),
+    body: null,
     headers: {
       Authorization: 'Basic Zm9vOmJhcg==',
       'Content-Type': 'application/json',
     },
   });
 });
-
-
