@@ -13,6 +13,10 @@ const forms = createForms({
   linkForm: {
     linkURL: '',
   },
+  signinForm: {
+    login: '',
+    password: '',
+  },
 });
 
 export default function configureStore(preloadedState) {

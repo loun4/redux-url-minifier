@@ -8,10 +8,14 @@
   padding: 2em;
 }
 
-.ui.form .error.message,
-.ui.form .success.message,
-.ui.form .warning.message {
-  display: block;
+.container {
+  height: 100%;
+}
+
+.signin {
+  max-width: 600px;
+  margin: 1em auto;
+  text-align: center;
 }
 
 .ui.separator {

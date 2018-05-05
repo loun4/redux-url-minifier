@@ -37,7 +37,7 @@ export default class LinkForm extends Component {
             <Control.text
               model=".linkURL"
               className="field-input"
-              id="login"
+              id="link"
               placeholder="Past your original url"
               validators={{ isValidURL }}
             />
@@ -46,7 +46,7 @@ export default class LinkForm extends Component {
         </div>
         <Errors
           model="linkForm.linkURL"
-          className="ui error message mini"
+          className="ui negative message mini"
           show="touched"
           messages={{
             isValidURL: 'Please enter a valid url',
