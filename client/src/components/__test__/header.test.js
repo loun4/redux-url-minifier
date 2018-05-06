@@ -2,8 +2,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import RouterProvider from '../router-provider';
-import Header from './header';
+import RouterProvider from '../../router-provider';
+import Header from '../header';
 
 const deauthenticate = jest.fn();
 

@@ -1,5 +1,5 @@
 
-import session, { initialState } from './session';
+import session, { initialState } from '../session';
 
 test('handle REQUEST_AUTHENTICATION', () => {
   const action = { type: 'REQUEST_AUTHENTICATION' };

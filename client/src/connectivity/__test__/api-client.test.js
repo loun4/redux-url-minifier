@@ -1,6 +1,6 @@
 
 import store from 'store2';
-import Client from './api-client';
+import Client from '../api-client';
 
 const credentials = { login: 'foo', password: 'bar' };
 

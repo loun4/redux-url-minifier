@@ -1,7 +1,7 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fetchEntityData, saveEntityData, removeEntityData } from '../actions/api';
+import { fetchEntityData, saveEntityData, removeEntityData } from '../../actions/api';
 
 const links = [
   {

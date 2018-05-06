@@ -2,7 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
-import LinkItem from './link-item';
+import LinkItem from '../link-item';
 
 let subject;
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import LinkList from './link-list';
+import LinkList from '../link-list';
 
 const links = [
   {

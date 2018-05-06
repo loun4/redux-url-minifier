@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import RouterService from '../utils/router-service';
-import LinkRoute from './link-route';
+import RouterService from '../../utils/router-service';
+import LinkRoute from '../link-route';
 
 let subject;
 

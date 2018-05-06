@@ -5,7 +5,7 @@ import { createForms } from 'react-redux-form';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import LinkForm from './link-form';
+import LinkForm from '../link-form';
 
 let store;
 let onSubmit;

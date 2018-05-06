@@ -1,7 +1,7 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { authenticate, deauthenticate } from '../actions/session';
+import { authenticate, deauthenticate } from '../../actions/session';
 
 const mockStore = configureMockStore([thunk]);
 
