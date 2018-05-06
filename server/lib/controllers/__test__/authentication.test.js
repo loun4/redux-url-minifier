@@ -3,11 +3,11 @@ const test = require('ava');
 const request = require('supertest');
 const fs = require('fs');
 const path = require('path');
-const Db = require("../connectivity/db");
-const server = require('../server');
-const config = require('../config');
+const Db = require("../../connectivity/db");
+const server = require('../../server');
+const config = require('../../config');
 
-const dbFile = path.resolve(__dirname, `../../resources/${config.db.file}`);
+const dbFile = path.resolve(__dirname, `../../../resources/${config.db.file}`);
 
 const [login, password] = Object.entries(config.credentials.users).pop();
 

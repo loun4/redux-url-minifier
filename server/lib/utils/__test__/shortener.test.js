@@ -1,6 +1,6 @@
 /* eslint-disable */
 const test = require('ava');
-const shortener = require('./shortener');
+const shortener = require('../shortener');
 
 test('Encode', t => {
   const encodedId = shortener.encode(20);
