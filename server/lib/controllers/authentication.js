@@ -9,7 +9,7 @@ const { errorHandler } = require('../middlewares/error');
 const AuthenticationRoutes = () => {
   const router = Router();
 
-  router.get('/authentication', basicAuth(credentials), (req, res) => {
+  router.post('/authentication', basicAuth(credentials), (req, res) => {
     res.send({});
   });
 
