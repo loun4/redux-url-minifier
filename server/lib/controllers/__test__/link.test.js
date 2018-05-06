@@ -65,7 +65,7 @@ test('Avoid multiple insert for the same link', async t => {
   t.is(res.body.id, res2.body.id);
 });
 
-test('Throw 401 if missing authentication', async t => {
+test('Throw 401 if missing authentication on get', async t => {
   const res = await t.context.app
   .get('/link')
 

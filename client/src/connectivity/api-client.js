@@ -46,7 +46,7 @@ class Client {
     return new Promise((resolve, reject) => {
       const { url, ...params } = this.parseRequestParams(options);
 
-      fetch(url, params)
+      return fetch(url, params)
         .then((res) => {
           if (!res.ok) {
             return res.json().then(() => {

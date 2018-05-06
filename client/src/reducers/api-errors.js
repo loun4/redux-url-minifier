@@ -9,13 +9,11 @@ const apiErrors = (state = {}, action) => {
   switch (action.type) {
     case API_GET_ERROR:
       return {
-        ...state,
         ...action.error,
         type: 'get',
       };
     case API_SAVE_ERROR:
       return {
-        ...state,
         ...action.error,
         type: 'save',
       };

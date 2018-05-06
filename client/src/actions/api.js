@@ -1,5 +1,6 @@
 
 import Client from '../connectivity/api-client';
+import { apiGetError, apiSaveError } from './api-errors';
 
 export const REQUEST_ALL_DATA = 'REQUEST_ALL_DATA';
 export const REQUEST_SAVE_DATA = 'REQUEST_SAVE_DATA';
@@ -64,7 +65,7 @@ export const fetchEntityData = ({
     query,
   })
     .then(data => dispatch(receiveAllData(entity, data)))
-    .catch(() => {});
+    .catch(e => dispatch(apiGetError(e)));
 };
 
 // Public save action for create and update
@@ -90,7 +91,8 @@ export const saveEntityData = ({
         return dispatch(receiveUpdateData(entity, data));
       }
       return dispatch(receiveNewData(entity, data));
-    });
+    })
+    .catch(e => dispatch(apiSaveError(e)));
 };
 
 // Public remove action
@@ -109,5 +111,5 @@ export const removeEntityData = ({
     query,
   })
     .then(() => dispatch(receiveRemoveData(entity, model)))
-    .catch(() => {});
+    .catch(e => dispatch(apiSaveError(e)));
 };

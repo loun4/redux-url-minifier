@@ -74,3 +74,50 @@ test('dispatch REQUEST_SAVE_DATA then RECEIVE_REMOVE_DATA after update', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
+
+test.only('dispatch API_GET_ERROR on error', () => {
+  const store = mockStore({});
+  fetch.resetMocks();
+  fetch.mockResponse(JSON.stringify({}), { status: 401 });
+
+  const expectedActions = [
+    { type: 'REQUEST_ALL_DATA', entity: 'link' },
+    { type: 'API_GET_ERROR', error: { status: 401, statusText: 'OK' } },
+  ];
+
+  return store.dispatch(fetchEntityData({ entity: 'link' })).then(() => {
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+
+test.only('dispatch API_SAVE_ERROR on create error', () => {
+  const store = mockStore({});
+  fetch.resetMocks();
+  fetch.mockResponse(JSON.stringify({}), { status: 401 });
+
+  const expectedActions = [
+    { type: 'REQUEST_SAVE_DATA', entity: 'link' },
+    { type: 'API_SAVE_ERROR', error: { status: 401, statusText: 'OK' } },
+  ];
+
+  const payload = { entity: 'link', model: links[0] };
+  return store.dispatch(saveEntityData(payload)).then(() => {
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+
+test.only('dispatch API_SAVE_ERROR on remove error', () => {
+  const store = mockStore({});
+  fetch.resetMocks();
+  fetch.mockResponse(JSON.stringify({}), { status: 401 });
+
+  const expectedActions = [
+    { type: 'REQUEST_SAVE_DATA', entity: 'link' },
+    { type: 'API_SAVE_ERROR', error: { status: 401, statusText: 'OK' } },
+  ];
+
+  const payload = { entity: 'link', model: links[0] };
+  return store.dispatch(removeEntityData(payload)).then(() => {
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
