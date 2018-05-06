@@ -4,30 +4,6 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import LinkItem from './link-item';
 
-const COLUMNS = [{
-  Header: 'Short URL',
-  accessor: 'shortURL',
-  Cell: row => <LinkItem url={row.value} className="mini" />,
-}, {
-  Header: 'Long URL',
-  accessor: 'linkURL',
-  minWidth: 100,
-}, {
-  Header: 'Created at',
-  accessor: 'createdAt',
-  Cell: row => new Date(row.value).toLocaleDateString(),
-  minWidth: 25,
-}, {
-  Header: 'Visits',
-  accessor: 'visit',
-  minWidth: 15,
-}, {
-  Cell: () => <button className="negative ui button mini">Delete</button>,
-  minWidth: 30,
-  className: 'rt-delete',
-  sortable: false,
-}];
-
 
 export default class LinkList extends Component {
   static propTypes = {
@@ -40,10 +16,44 @@ export default class LinkList extends Component {
         shortURL: PropTypes.string,
       })),
     }).isRequired,
+    onRemove: PropTypes.func.isRequired,
   }
 
-  handleDelete() {
+  getColumns() {
+    return [{
+      Header: 'Short URL',
+      accessor: 'shortURL',
+      Cell: row => <LinkItem url={row.value} className="mini" />,
+    }, {
+      Header: 'Long URL',
+      accessor: 'linkURL',
+      minWidth: 100,
+    }, {
+      Header: 'Created at',
+      accessor: 'createdAt',
+      Cell: row => new Date(row.value).toLocaleDateString(),
+      minWidth: 25,
+    }, {
+      Header: 'Visits',
+      accessor: 'visit',
+      minWidth: 15,
+    }, {
+      Cell: row => (
+        <button
+          className="negative ui button mini"
+          onClick={this.handleDelete(row.original)}
+        >
+          Delete
+        </button>
+      ),
+      minWidth: 30,
+      className: 'rt-delete',
+      sortable: false,
+    }];
+  }
 
+  handleDelete = model => () => {
+    this.props.onRemove(model);
   }
 
   render() {
@@ -52,7 +62,7 @@ export default class LinkList extends Component {
     return (
       <ReactTable
         data={models}
-        columns={COLUMNS}
+        columns={this.getColumns()}
         minRows={0}
         noDataText="No links found"
         defaultSorted={[{ id: 'createdAt', desc: true }]}

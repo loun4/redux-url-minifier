@@ -97,7 +97,7 @@ export const saveEntityData = ({
 export const removeEntityData = ({
   entity,
   model,
-  auth = false,
+  auth = true,
   query = {},
 }) => (dispatch) => {
   dispatch(requestSaveData(entity));

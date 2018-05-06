@@ -32,6 +32,7 @@ beforeEach(() => {
       isSaving: false,
       models: links,
     },
+    onRemove: jest.fn(),
   };
 
   subject = <LinkList {...props} />;

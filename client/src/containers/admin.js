@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchEntityData, saveEntityData } from '../actions/api';
+import { fetchEntityData, saveEntityData, removeEntityData } from '../actions/api';
 import { authenticate } from '../actions/session';
 import Signin from '../components/signin';
 import LinkForm from '../components/link-form';
@@ -31,6 +31,7 @@ class AdminContainer extends Component {
     authenticate: PropTypes.func.isRequired,
     fetchEntityData: PropTypes.func.isRequired,
     saveEntityData: PropTypes.func.isRequired,
+    removeEntityData: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -49,22 +50,29 @@ class AdminContainer extends Component {
     this.props.saveEntityData({ entity: 'link', model });
   }
 
+  handleLinkRemove = (model) => {
+    this.props.removeEntityData({ entity: 'link', model });
+  }
+
   render() {
     const {
       authenticate,
       link,
       forms: { signinForm, linkForm },
-      session: { isAuthenticated, isFetching: isSessionFetching, readyToAuthenticate },
+      session: {
+        isAuthenticated,
+        readyToAuthenticate,
+        isFetching: isSessionFetching,
+      },
     } = this.props;
 
     if (readyToAuthenticate || isSessionFetching) {
       return null;
     }
-
     return isAuthenticated ? (
       <div>
         <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} />
-        <LinkList link={link} />
+        <LinkList link={link} onRemove={this.handleLinkRemove} />
       </div>
     ) : (
       <Signin form={signinForm} onSubmit={authenticate} />
@@ -86,4 +94,5 @@ export default connect(mapStateToProps, {
   authenticate,
   fetchEntityData,
   saveEntityData,
+  removeEntityData,
 })(AdminContainer);

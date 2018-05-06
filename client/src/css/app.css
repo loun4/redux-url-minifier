@@ -41,6 +41,7 @@
 
 .rt-th {
   text-align: left;
+  outline: none;
 }
 
 .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td {
@@ -49,4 +50,8 @@
 
 .rt-delete {
   text-align: center;
+}
+
+.ui.menu {
+  border-radius: 0;
 }
