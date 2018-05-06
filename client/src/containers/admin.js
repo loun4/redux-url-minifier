@@ -12,7 +12,7 @@ class AdminContainer extends Component {
   static propTypes = {
     session: PropTypes.shape({
       isAuthenticated: PropTypes.bool,
-      willAuthenticate: PropTypes.bool,
+      readyToAuthenticate: PropTypes.bool,
       isFetching: PropTypes.bool,
     }).isRequired,
     link: PropTypes.shape({
@@ -21,7 +21,7 @@ class AdminContainer extends Component {
       models: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string,
         linkURL: PropTypes.string,
-        meta: PropTypes.shape({}),
+        shortURL: PropTypes.string,
       })),
     }).isRequired,
     forms: PropTypes.shape({
@@ -34,15 +34,14 @@ class AdminContainer extends Component {
   };
 
   componentDidMount() {
-    const {
-      session: { willAuthenticate },
-      authenticate,
-      fetchEntityData,
-    } = this.props;
+    if (this.props.session.readyToAuthenticate) {
+      this.props.authenticate();
+    }
+  }
 
-    if (willAuthenticate) {
-      authenticate().then(() =>
-        fetchEntityData({ entity: 'link', auth: true }));
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.session.isAuthenticated && !this.props.session.isAuthenticated) {
+      this.props.fetchEntityData({ entity: 'link', auth: true });
     }
   }
 
@@ -55,10 +54,10 @@ class AdminContainer extends Component {
       authenticate,
       link,
       forms: { signinForm, linkForm },
-      session: { isAuthenticated, isFetching: isSessionFetching, willAuthenticate },
+      session: { isAuthenticated, isFetching: isSessionFetching, readyToAuthenticate },
     } = this.props;
 
-    if (willAuthenticate || isSessionFetching) {
+    if (readyToAuthenticate || isSessionFetching) {
       return null;
     }
 

@@ -7,13 +7,7 @@ import LinkItem from './link-item';
 let subject;
 
 beforeEach(() => {
-  const link = {
-    id: 'Og',
-    linkURL: 'http://wwww.google.fr',
-    shortURL: '/link/0g',
-  };
-
-  subject = <LinkItem link={link} />;
+  subject = <LinkItem url="/link/Og" />;
 });
 
 test('Render link item', () => {
@@ -24,7 +18,7 @@ test('Render link item', () => {
 
 test('Handle shortURL', () => {
   const component = shallow(subject);
-  expect(component.find('a').props().href).toEqual('/link/0g');
+  expect(component.find('a').props().href).toEqual('/link/Og');
 });
 
 test('Handle copy', () => {

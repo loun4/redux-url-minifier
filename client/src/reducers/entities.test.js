@@ -6,11 +6,13 @@ const links = [
     id: 'anId',
     linkURL: 'http://www.google.fr',
     shortURL: '/link/anId',
+    createdAt: null,
   },
   {
     id: 'anId2',
     linkURL: 'http://www.github.com',
     shortURL: '/link/anId2',
+    createdAt: null,
   },
 ];
 
@@ -18,12 +20,14 @@ const newLink = {
   id: 'anId3',
   linkURL: 'http://www.yahoo.com',
   shortURL: '/link/anId3',
+  createdAt: null,
 };
 
 const updatedLink = {
   id: 'anId3',
   linkURL: 'http://www.gitlab.com',
   shortURL: '/link/anId3',
+  createdAt: null,
 };
 
 const populatedState = {

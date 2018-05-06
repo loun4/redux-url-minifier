@@ -13,6 +13,9 @@ const { REACT_APP_REST_URL: ENDPOINT } = process.env;
 const Models = {
   link: data => ({
     ...data,
+    get createdAt() {
+      return data.meta ? data.meta.created : null;
+    },
     get shortURL() {
       return `${ENDPOINT || ''}/link/${data.id}`;
     },

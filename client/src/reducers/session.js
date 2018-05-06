@@ -9,7 +9,7 @@ import {
 } from '../actions/session';
 
 export const initialState = {
-  willAuthenticate: Client.getCredentials() !== null,
+  readyToAuthenticate: Client.getCredentials() !== null,
   isFetching: false,
   isAuthenticated: false,
 };
@@ -19,7 +19,7 @@ const session = (state = initialState, action) => {
     case REQUEST_AUTHENTICATION:
       return {
         ...state,
-        willAuthenticate: false,
+        readyToAuthenticate: false,
         isFetching: true,
         isAuthenticated: false,
       };
@@ -27,7 +27,7 @@ const session = (state = initialState, action) => {
     case FAILED_AUTHENTICATION:
       return {
         ...state,
-        willAuthenticate: false,
+        readyToAuthenticate: false,
         isFetching: false,
         isAuthenticated: false,
       };
@@ -35,7 +35,7 @@ const session = (state = initialState, action) => {
     case AUTHENTICATED:
       return {
         ...state,
-        willAuthenticate: false,
+        readyToAuthenticate: false,
         isFetching: false,
         isAuthenticated: true,
       };
@@ -43,7 +43,7 @@ const session = (state = initialState, action) => {
     case DEAUTHENTICATED:
       return {
         ...state,
-        willAuthenticate: false,
+        readyToAuthenticate: false,
         isFetching: false,
         isAuthenticated: false,
       };

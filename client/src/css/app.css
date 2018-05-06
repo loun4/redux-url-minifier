@@ -12,6 +12,19 @@
   height: 100%;
 }
 
+@media only screen and (max-width: 1199px) and (min-width: 992px) {
+  .ui.container {
+    width: 1100px;
+  }
+}
+
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  .ui.container {
+    width: auto;
+  }
+}
+
 .signin {
   max-width: 600px;
   margin: 1em auto;
@@ -24,4 +37,16 @@
 
 .rt-table {
   min-height: 130px;
+}
+
+.rt-th {
+  text-align: left;
+}
+
+.ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td {
+  padding: 10px;
+}
+
+.rt-delete {
+  text-align: center;
 }

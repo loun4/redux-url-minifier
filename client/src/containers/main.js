@@ -18,7 +18,7 @@ class MainContainer extends Component {
       models: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string,
         linkURL: PropTypes.string,
-        meta: PropTypes.shape({}),
+        shortURL: PropTypes.string,
       })),
     }).isRequired,
     saveEntityData: PropTypes.func.isRequired,
@@ -35,7 +35,7 @@ class MainContainer extends Component {
       <div>
         <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} />
         {link.models.length > 0 && (
-          <LinkItem link={[...link.models].shift()} />
+          <LinkItem url={[...link.models].shift().shortURL} />
         )}
       </div>
     );
