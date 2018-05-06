@@ -4,4 +4,3 @@ node_modules
 server/resources/db.json
 server/resources/db.local.json
 server/config/local.json
-*.snap

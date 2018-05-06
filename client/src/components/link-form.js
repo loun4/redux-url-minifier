@@ -54,12 +54,3 @@ export default class LinkForm extends Component {
     );
   }
 }
-
-
-// Allow dispatchProps to be overriden, so actions like createLink
-// can be tested.
-// const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-//   ...stateProps,
-//   ...dispatchProps,
-//   ...ownProps,
-// });

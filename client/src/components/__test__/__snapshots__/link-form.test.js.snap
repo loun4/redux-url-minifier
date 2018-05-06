@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render form 1`] = `
+<form
+  className="ui form column massive separator"
+  noValidate={undefined}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="field"
+  >
+    <div
+      className="ui action input"
+    >
+      <input
+        autoComplete="off"
+        className="field-input"
+        disabled={false}
+        id="link"
+        name="linkForm.linkURL"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Past your original url"
+        type="text"
+        value=""
+      />
+      <button
+        className="ui button"
+        type="submit"
+      >
+        Go !
+      </button>
+    </div>
+  </div>
+</form>
+`;

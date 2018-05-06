@@ -75,7 +75,7 @@ test('dispatch REQUEST_SAVE_DATA then RECEIVE_REMOVE_DATA after update', () => {
   });
 });
 
-test.only('dispatch API_GET_ERROR on error', () => {
+test('dispatch API_GET_ERROR on error', () => {
   const store = mockStore({});
   fetch.resetMocks();
   fetch.mockResponse(JSON.stringify({}), { status: 401 });
@@ -90,7 +90,7 @@ test.only('dispatch API_GET_ERROR on error', () => {
   });
 });
 
-test.only('dispatch API_SAVE_ERROR on create error', () => {
+test('dispatch API_SAVE_ERROR on create error', () => {
   const store = mockStore({});
   fetch.resetMocks();
   fetch.mockResponse(JSON.stringify({}), { status: 401 });
@@ -106,7 +106,7 @@ test.only('dispatch API_SAVE_ERROR on create error', () => {
   });
 });
 
-test.only('dispatch API_SAVE_ERROR on remove error', () => {
+test('dispatch API_SAVE_ERROR on remove error', () => {
   const store = mockStore({});
   fetch.resetMocks();
   fetch.mockResponse(JSON.stringify({}), { status: 401 });

@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render header after authentication 1`] = `
+<div
+  className="ui inverted menu"
+>
+  <a
+    className="header item active"
+    href="/"
+    onClick={[Function]}
+  >
+    URL shortener
+  </a>
+  <div
+    className="right menu"
+  >
+    <a
+      className="item"
+      href="/admin"
+      onClick={[Function]}
+    >
+      Admin
+    </a>
+    <button
+      className="item"
+      onClick={[Function]}
+    >
+      <i
+        className="sign out alternate icon"
+      />
+      Sign out
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Render header before authentication 1`] = `
+<div
+  className="ui inverted menu"
+>
+  <a
+    className="header item active"
+    href="/"
+    onClick={[Function]}
+  >
+    URL shortener
+  </a>
+  <div
+    className="right menu"
+  >
+    <a
+      className="item"
+      href="/admin"
+      onClick={[Function]}
+    >
+      Admin
+    </a>
+  </div>
+</div>
+`;

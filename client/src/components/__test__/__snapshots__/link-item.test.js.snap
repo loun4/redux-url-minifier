@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render link item 1`] = `
+<div
+  className="ui buttons"
+>
+  <a
+    className="ui button"
+    href="/link/Og"
+    target="_blank"
+  >
+    <i
+      className="external alternate icon"
+    />
+    /link/Og
+  </a>
+  <div
+    className="or"
+  />
+  <button
+    className="ui vertical green button"
+    onClick={[Function]}
+  >
+    Copy
+  </button>
+</div>
+`;

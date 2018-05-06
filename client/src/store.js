@@ -5,6 +5,7 @@ import { createLogger } from 'redux-logger';
 import { createForms } from 'react-redux-form';
 import entities from './reducers/entities';
 import session from './reducers/session';
+import error from './reducers/api-errors';
 
 const loggerMiddleware = createLogger({
   predicate() { return process.env.NODE_ENV === 'development'; },
@@ -26,6 +27,7 @@ export default function configureStore(preloadedState) {
       ...forms,
       entities,
       session,
+      error,
     }),
     preloadedState,
     applyMiddleware(

@@ -55,3 +55,31 @@
 .ui.menu {
   border-radius: 0;
 }
+
+.ui.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 500px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
+}
+
+.ui.notification.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.error-box {
+  text-align: center;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}

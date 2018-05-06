@@ -5,6 +5,8 @@ import {
   API_CLEAR_ERROR,
 } from '../actions/api-errors';
 
+import { DEAUTHENTICATED } from '../actions/session';
+
 const apiErrors = (state = {}, action) => {
   switch (action.type) {
     case API_GET_ERROR:
@@ -18,6 +20,7 @@ const apiErrors = (state = {}, action) => {
         type: 'save',
       };
     case API_CLEAR_ERROR:
+    case DEAUTHENTICATED:
       return {};
     default:
       return state;
