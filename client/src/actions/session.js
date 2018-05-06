@@ -30,6 +30,7 @@ export const authenticate = (credentials = null) => (dispatch) => {
   const req = Client.setTemporaryCredentials(credentials)
     .request({
       endpoint: 'authentication',
+      method: 'POST',
       auth: true,
     })
     .then(() => {
