@@ -1,7 +1,9 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { parse } from 'url';
 import registerServiceWorker from './registerServiceWorker';
+import RouterService from './utils/router-service';
 import Routes from './routes';
 
 const render = (path = window.location.href) => {
@@ -17,4 +19,6 @@ const render = (path = window.location.href) => {
 };
 
 render();
+RouterService.on('change', render);
+
 registerServiceWorker();
