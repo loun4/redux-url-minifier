@@ -3,4 +3,4 @@ node_modules
 .DS_Store
 server/resources/db.json
 server/resources/db.local.json
-server/config/local.json
+server/resources/db.production.json

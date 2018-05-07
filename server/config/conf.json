@@ -1,6 +1,6 @@
 {
   "db": {
-    "file": "db.test.json",
+    "file": "db.local.json",
     "options": {
       "autoload": true,
       "autosave": true,

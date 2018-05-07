@@ -2,8 +2,8 @@
 const fs = require('fs');
 
 const files = {
-  developement: 'local.json',
-  production: 'production.json',
+  developement: 'conf.json',
+  production: 'conf.json',
   test: 'test.json',
 };
 
@@ -14,4 +14,9 @@ if (!fs.existsSync(file)) {
   throw new Error(`conf file ${file} not found`);
 }
 
-module.exports = JSON.parse(fs.readFileSync(file));
+const conf = JSON.parse(fs.readFileSync(file));
+if (env === 'production') {
+  conf.db.file = 'db.production.json';
+}
+
+module.exports = conf;
