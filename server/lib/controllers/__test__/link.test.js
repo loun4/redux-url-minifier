@@ -1,54 +1,35 @@
-/* eslint-disable */
+
 const test = require('ava');
-const request = require('supertest');
-const fs = require('fs');
-const path = require('path');
-const Db = require("../../connectivity/db");
-const config = require('../../config');
-const server = require('../../server');
+const { start, stop } = require('../../setup-test');
 const shortener = require('../../utils/shortener');
-const dbFile = path.resolve(__dirname, `../../../resources/${config.db.file}`);
 
-const [login, password] = Object.entries(config.credentials.users).pop();
 
-test.before(async t => {
-  if (fs.existsSync(dbFile)) {
-    fs.unlinkSync(dbFile);
-  }
-  fs.writeFileSync(dbFile, '');
+test.before(start);
 
-  const db = await Db.init();
-
-  t.context = {
-    app: request(server(db)),
-    db,
-  }
-});
-
-test('Throw 412 if invalid link data on create', async t => {
+test('Throw 412 if invalid link data on create', async (t) => {
   const res = await t.context.app.post('/link').send({});
 
   t.is(res.status, 412);
   t.deepEqual(res.body, [
-    { field: 'linkURL', message: 'should have required property \'linkURL\'' }
+    { field: 'linkURL', message: 'should have required property \'linkURL\'' },
   ]);
 
   const res2 = await t.context.app.post('/link').send({ linkURL: 'invalidUri' });
 
   t.is(res2.status, 412);
   t.deepEqual(res2.body, [
-    { field: 'linkURL', message: 'should match format "url"' }
+    { field: 'linkURL', message: 'should match format "url"' },
   ]);
 });
 
-test('Create link', async t => {
+test('Create link', async (t) => {
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.google.fr' });
 
   t.is(res.status, 200);
   t.is(res.body.linkURL, 'http://www.google.fr');
 });
 
-test('Avoid multiple insert for the same link', async t => {
+test('Avoid multiple insert for the same link', async (t) => {
   // first post
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.fasterize.com' });
 
@@ -57,7 +38,7 @@ test('Avoid multiple insert for the same link', async t => {
 
   // second post
   const res2 = await t.context.app.post('/link')
-  .send({ linkURL: 'http://www.fasterize.com' });
+    .send({ linkURL: 'http://www.fasterize.com' });
 
   t.is(res2.status, 200);
   t.is(res2.body.linkURL, 'http://www.fasterize.com');
@@ -65,37 +46,39 @@ test('Avoid multiple insert for the same link', async t => {
   t.is(res.body.id, res2.body.id);
 });
 
-test('Throw 401 if missing authentication on get', async t => {
+test('Throw 401 if missing authentication on get', async (t) => {
   const res = await t.context.app
-  .get('/link')
+    .get('/link');
 
   t.is(res.status, 401);
 });
 
-test('Send all links', async t => {
-  const res = await t.context.app.post('/link').send({ linkURL: 'http://www.yahoo.com' });
-  const res2 = await t.context.app.post('/link').send({ linkURL: 'http://www.amazon.com' });
-
+test('Send all links', async (t) => {
+  await t.context.app.post('/link').send({ linkURL: 'http://www.yahoo.com' });
+  await t.context.app.post('/link').send({ linkURL: 'http://www.amazon.com' });
+  const { login, password } = t.context.credentials;
   const res3 = await t.context.app
-  .get('/link')
-  .auth(login, password)
+    .get('/link').auth(login, password);
 
-  t.true(res3.body.some(({linkURL}) => linkURL === 'http://www.yahoo.com'));
-  t.true(res3.body.some(({linkURL}) => linkURL === 'http://www.amazon.com'));
+  t.true(res3.body.some(({ linkURL }) => linkURL === 'http://www.yahoo.com'));
+  t.true(res3.body.some(({ linkURL }) => linkURL === 'http://www.amazon.com'));
   t.is(res3.status, 200);
 });
 
-test('Throw 404 if wrong id param on delete', async t => {
+test('Throw 404 if wrong id param on delete', async (t) => {
+  const { login, password } = t.context.credentials;
   const res = await t.context.app.delete('/link/invalid').auth(login, password);
   t.is(res.status, 404);
 });
 
-test('Throw 404 on delete if link not found', async t => {
+test('Throw 404 on delete if link not found', async (t) => {
+  const { login, password } = t.context.credentials;
   const res = await t.context.app.delete('/link/0MX').auth(login, password);
   t.is(res.status, 404);
 });
 
-test('Delete link', async t => {
+test('Delete link', async (t) => {
+  const { login, password } = t.context.credentials;
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.github.com' });
   const res2 = await t.context.app.delete(`/link/${res.body.id}`).auth(login, password);
 
@@ -103,12 +86,12 @@ test('Delete link', async t => {
   t.is(res2.status, 200);
 });
 
-test('Throw 404 if wrong id param on get', async t => {
+test('Throw 404 if wrong id param on get', async (t) => {
   const res = await t.context.app.get('/link/wrong');
   t.is(res.status, 404);
 });
 
-test('Redirect 301 to link url', async t => {
+test('Redirect 301 to link url', async (t) => {
   const res = await t.context.app.post('/link').send({ linkURL: 'http://www.github.com' });
   const res2 = await t.context.app.get(`/link/${res.body.id}`);
 
@@ -116,20 +99,15 @@ test('Redirect 301 to link url', async t => {
   t.is(res2.status, res2.status);
 });
 
-test('Increment visit', async t => {
+test('Increment visit', async (t) => {
   const res = await t.context.app.post('/link').send({ linkURL: 'https://news.ycombinator.com/' });
+  await t.context.app.get(`/link/${res.body.id}`);
+  await t.context.app.get(`/link/${res.body.id}`);
+  await t.context.app.get(`/link/${res.body.id}`);
 
-  const res2 = await t.context.app.get(`/link/${res.body.id}`);
-  const res3 = await t.context.app.get(`/link/${res.body.id}`);
-  const res4 = await t.context.app.get(`/link/${res.body.id}`);
-
-  const doc = t.context.db.getCollection("links").get(shortener.decode(res.body.id));
+  const doc = t.context.db.getCollection('links').get(shortener.decode(res.body.id));
   t.is(doc.visit, 3);
 });
 
 
-test.after(t => {
-  if (fs.existsSync(dbFile)) {
-    fs.unlinkSync(dbFile);
-  }}
-);
+test.after(stop);
