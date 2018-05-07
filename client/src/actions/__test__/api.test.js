@@ -121,3 +121,26 @@ test('dispatch API_SAVE_ERROR on remove error', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
+
+test('dispatch API_SAVE_ERROR and API_CLEAR_ERROR after timeout', () => {
+  const store = mockStore({});
+  jest.useFakeTimers();
+  fetch.resetMocks();
+  fetch.mockResponse(JSON.stringify({}), { status: 401 });
+
+  const expectedActions = [
+    { type: 'REQUEST_SAVE_DATA', entity: 'link' },
+    { type: 'API_SAVE_ERROR', error: { status: 401, statusText: 'OK' } },
+  ];
+
+  const payload = { entity: 'link', model: links[0] };
+
+  return store.dispatch(saveEntityData(payload)).then(() => {
+    expect(store.getActions()).toEqual(expectedActions);
+  }).then(() => {
+    setTimeout(() => {
+      expect(store.getActions()).toContainEqual({ type: 'API_CLEAR_ERROR' });
+    }, 4000);
+    jest.runAllTimers();
+  });
+});

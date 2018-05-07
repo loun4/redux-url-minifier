@@ -13,18 +13,9 @@ test('dispatch REQUEST_AUTHENTICATION then AUTHENTICATED', () => {
   return store.dispatch(authenticate()).then(() => {
     const storeActions = store.getActions();
 
-    const requestAction = storeActions
-      .find(({ type }) => type === 'REQUEST_AUTHENTICATION');
-
-    const authAction = storeActions
-      .find(({ type }) => type === 'AUTHENTICATED');
-
-    const clearErrorAction = storeActions
-      .find(({ type }) => type === 'API_CLEAR_ERROR');
-
-    expect(requestAction).toBeTruthy();
-    expect(authAction).toBeTruthy();
-    expect(clearErrorAction).toBeTruthy();
+    expect(storeActions).toContainEqual({ type: 'REQUEST_AUTHENTICATION' });
+    expect(storeActions).toContainEqual({ type: 'AUTHENTICATED' });
+    expect(storeActions).toContainEqual({ type: 'API_CLEAR_ERROR' });
   });
 });
 
@@ -35,18 +26,9 @@ test('dispatch REQUEST_AUTHENTICATION then AUTHENTICATION_FAILURE', () => {
   return store.dispatch(authenticate()).catch(() => {
     const storeActions = store.getActions();
 
-    const requestAction = storeActions
-      .find(({ type }) => type === 'REQUEST_AUTHENTICATION');
-
-    const authAction = storeActions
-      .find(({ type }) => type === 'FAILED_AUTHENTICATION');
-
-    const clearErrorAction = storeActions
-      .find(({ type }) => type === 'API_CLEAR_ERROR');
-
-    expect(requestAction).toBeTruthy();
-    expect(authAction).toBeTruthy();
-    expect(clearErrorAction).toBeTruthy();
+    expect(storeActions).toContainEqual({ type: 'REQUEST_AUTHENTICATION' });
+    expect(storeActions).toContainEqual({ type: 'FAILED_AUTHENTICATION' });
+    expect(storeActions).toContainEqual({ type: 'API_CLEAR_ERROR' });
   });
 });
 
@@ -55,12 +37,6 @@ test('dispatch DEAUTHENTICATED', () => {
   store.dispatch(deauthenticate());
   const storeActions = store.getActions();
 
-  const action = storeActions
-    .find(({ type }) => type === 'DEAUTHENTICATED');
-
-  const clearErrorAction = storeActions
-    .find(({ type }) => type === 'API_CLEAR_ERROR');
-
-  expect(action).toBeTruthy();
-  expect(clearErrorAction).toBeTruthy();
+  expect(storeActions).toContainEqual({ type: 'DEAUTHENTICATED' });
+  expect(storeActions).toContainEqual({ type: 'API_CLEAR_ERROR' });
 });

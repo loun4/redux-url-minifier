@@ -98,7 +98,7 @@ test('handle RECEIVE_REMOVE_DATA', () => {
   });
 });
 
-test.only('back to initial state after sign out', () => {
+test('back to initial state after sign out', () => {
   const action = { type: 'DEAUTHENTICATED' };
   const state = {
     link: {
