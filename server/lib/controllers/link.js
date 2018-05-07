@@ -41,7 +41,7 @@ const LinkRoutes = (db) => {
   router.get('/link/:encodedId', (req, res, next) => {
     const id = shortener.decode(req.params.encodedId);
     if (!id) {
-      return next({ name: NotAuthorizedError });
+      return next({ name: NotFoundError });
     }
 
     return LoadById(id)
@@ -59,7 +59,7 @@ const LinkRoutes = (db) => {
   router.delete('/link/:encodedId', basicAuth(credentials), (req, res, next) => {
     const id = shortener.decode(req.params.encodedId);
     if (!id) {
-      return next({ name: NotAuthorizedError });
+      return next({ name: NotFoundError });
     }
 
     return LoadById(id)

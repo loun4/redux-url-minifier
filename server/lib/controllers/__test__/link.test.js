@@ -25,7 +25,7 @@ test.before(async t => {
   }
 });
 
-test('Throw 412 on create if invalid link data', async t => {
+test('Throw 412 if invalid link data on create', async t => {
   const res = await t.context.app.post('/link').send({});
 
   t.is(res.status, 412);
@@ -85,9 +85,9 @@ test('Send all links', async t => {
   t.is(res3.status, 200);
 });
 
-test('Throw 401 on delete if invalid id param', async t => {
+test('Throw 404 if wrong id param on delete', async t => {
   const res = await t.context.app.delete('/link/invalid').auth(login, password);
-  t.is(res.status, 401);
+  t.is(res.status, 404);
 });
 
 test('Throw 404 on delete if link not found', async t => {
@@ -103,9 +103,9 @@ test('Delete link', async t => {
   t.is(res2.status, 200);
 });
 
-test('Throw 401 on get if wrong id param', async t => {
+test('Throw 404 if wrong id param on get', async t => {
   const res = await t.context.app.get('/link/wrong');
-  t.is(res.status, 401);
+  t.is(res.status, 404);
 });
 
 test('Redirect 301 to link url', async t => {
