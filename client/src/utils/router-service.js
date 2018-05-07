@@ -31,7 +31,6 @@ class RouterService extends EventEmitter {
       query,
     };
   }
-};
-
+}
 
 export default new RouterService();
