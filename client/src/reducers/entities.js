@@ -8,6 +8,9 @@ import {
   RECEIVE_REMOVE_DATA,
 } from '../actions/api';
 
+import { DEAUTHENTICATED } from '../actions/session';
+
+
 const { REACT_APP_REST_URL: ENDPOINT } = process.env;
 
 const Models = {
@@ -47,7 +50,7 @@ const initialEntityState = {
   models: [],
 };
 
-const initialState = {
+export const initialState = {
   link: initialEntityState,
   // ... other entities
 };
@@ -117,6 +120,9 @@ const entity = (
           models: removeModel(entityState.models, rawData.id),
         },
       };
+
+    case DEAUTHENTICATED:
+      return initialState;
 
     default:
       return state;

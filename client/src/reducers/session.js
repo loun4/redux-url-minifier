@@ -42,10 +42,8 @@ const session = (state = initialState, action) => {
 
     case DEAUTHENTICATED:
       return {
-        ...state,
+        ...initialState,
         readyToAuthenticate: false,
-        isFetching: false,
-        isAuthenticated: false,
       };
 
     default:

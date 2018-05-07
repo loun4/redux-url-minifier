@@ -25,6 +25,7 @@ beforeEach(() => {
 
   const props = {
     onSubmit,
+    onReset: jest.fn(),
     form: store.getState().forms.signinForm,
   };
 

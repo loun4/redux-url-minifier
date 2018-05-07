@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 import { fetchEntityData, saveEntityData, removeEntityData } from '../actions/api';
 import { authenticate } from '../actions/session';
+import Loader from '../components/loader';
 import Signin from '../components/signin';
 import LinkForm from '../components/link-form';
 import LinkList from '../components/link-list';
@@ -32,13 +34,8 @@ class AdminContainer extends Component {
     fetchEntityData: PropTypes.func.isRequired,
     saveEntityData: PropTypes.func.isRequired,
     removeEntityData: PropTypes.func.isRequired,
+    resetForm: PropTypes.func.isRequired,
   };
-
-  componentDidMount() {
-    if (this.props.session.readyToAuthenticate) {
-      this.props.authenticate();
-    }
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.session.isAuthenticated && !this.props.session.isAuthenticated) {
@@ -57,6 +54,7 @@ class AdminContainer extends Component {
   render() {
     const {
       authenticate,
+      resetForm,
       link,
       forms: { signinForm, linkForm },
       session: {
@@ -67,15 +65,16 @@ class AdminContainer extends Component {
     } = this.props;
 
     if (readyToAuthenticate || isSessionFetching) {
-      return null;
+      return <Loader />;
     }
+
     return isAuthenticated ? (
       <div>
-        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} />
+        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} onReset={resetForm} />
         <LinkList link={link} onRemove={this.handleLinkRemove} />
       </div>
     ) : (
-      <Signin form={signinForm} onSubmit={authenticate} />
+      <Signin form={signinForm} onSubmit={authenticate} onReset={resetForm} />
     );
   }
 }
@@ -95,4 +94,5 @@ export default connect(mapStateToProps, {
   fetchEntityData,
   saveEntityData,
   removeEntityData,
+  resetForm: actions.reset,
 })(AdminContainer);

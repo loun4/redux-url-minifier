@@ -10,7 +10,12 @@ export default class LinkForm extends Component {
   static propTypes = {
     form: PropTypes.shape({}).isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onReset: PropTypes.func.isRequired,
   };
+
+  componentDidMount() {
+    this.props.onReset('linkForm');
+  }
 
   handleSubmit = (model) => {
     let { linkURL } = model;

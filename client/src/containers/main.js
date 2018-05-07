@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 import { saveEntityData } from '../actions/api';
+import Loader from '../components/loader';
 import LinkForm from '../components/link-form';
 import LinkItem from '../components/link-item';
 
@@ -22,6 +24,7 @@ class MainContainer extends Component {
       })),
     }).isRequired,
     saveEntityData: PropTypes.func.isRequired,
+    resetForm: PropTypes.func.isRequired,
   }
 
   handleLinkCreate = (model) => {
@@ -29,11 +32,15 @@ class MainContainer extends Component {
   }
 
   render() {
-    const { linkForm, link } = this.props;
+    const { linkForm, link, resetForm } = this.props;
+
+    if (link.isFetching) {
+      return <Loader />;
+    }
 
     return (
       <div>
-        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} />
+        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} onReset={resetForm} />
         {link.models.length > 0 && (
           <LinkItem url={[...link.models].shift().shortURL} />
         )}
@@ -53,4 +60,5 @@ const mapStateToProps = ({
 
 export default connect(mapStateToProps, {
   saveEntityData,
+  resetForm: actions.reset,
 })(MainContainer);

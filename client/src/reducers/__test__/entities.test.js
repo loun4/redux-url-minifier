@@ -1,5 +1,5 @@
 
-import entitiesReducer from '../entities';
+import entitiesReducer, { initialState } from '../entities';
 
 const links = [
   {
@@ -98,3 +98,14 @@ test('handle RECEIVE_REMOVE_DATA', () => {
   });
 });
 
+test.only('back to initial state after sign out', () => {
+  const action = { type: 'DEAUTHENTICATED' };
+  const state = {
+    link: {
+      ...populatedState.link,
+      models: links,
+    },
+  };
+
+  expect(entitiesReducer(state, action)).toEqual(initialState);
+});
