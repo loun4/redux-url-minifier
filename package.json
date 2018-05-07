@@ -38,7 +38,7 @@
   "scripts": {
     "test": "export NODE_ENV=test && ava",
     "start": "export NODE_ENV=developement && PORT=4200 nodemon --watch ./server --ignore ./server/resources/ ./server/api-starter.js",
-    "install": "cd client && npm install && npm run build && cd ..",
+    "install": "cd client && yarn install && yarn build && cd ..",
     "server": "cd ./server/resources && touch db.production.json && cd .. && node ./api-starter.js"
   }
 }

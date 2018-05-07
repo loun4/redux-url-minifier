@@ -18,7 +18,7 @@ const render = (path = window.location.href) => {
   );
 };
 
-render();
+window.addEventListener('popstate', () => render());
 RouterService.on('change', render);
-
+render();
 unregister();

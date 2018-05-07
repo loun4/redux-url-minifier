@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render loader 1`] = `
+<div
+  className="loader"
+>
+  <img
+    alt=""
+    height="60"
+    src="loader.svg"
+    width="60"
+  />
+</div>
+`;
