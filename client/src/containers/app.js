@@ -82,7 +82,16 @@ const mapStateToProps = ({
   error,
 });
 
+// Allow dispatchProps to be overriden
+// so  props can be mocked & tested
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  ...ownProps,
+});
+
+
 export default connect(mapStateToProps, {
   authenticate,
   deauthenticate,
-})(App);
+}, mergeProps)(App);

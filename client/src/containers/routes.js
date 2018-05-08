@@ -2,11 +2,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route } from 'react-enroute';
-import configureStore from './store';
+import configureStore from '../store';
 import RouterProvider from './router-provider';
-import App from './containers/app';
-import Main from './containers/main';
-import Admin from './containers/admin';
+import App from './app';
+import Main from './main';
+/* eslint-disable import/no-named-as-default */
+import Admin from './admin';
 
 const store = configureStore();
 

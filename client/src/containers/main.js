@@ -9,7 +9,7 @@ import LinkForm from '../components/link-form';
 import LinkItem from '../components/link-item';
 
 
-class MainContainer extends Component {
+class Main extends Component {
   static propTypes = {
     linkForm: PropTypes.shape({
       linkURL: PropTypes.shape({}),
@@ -57,8 +57,15 @@ const mapStateToProps = ({
   link,
 });
 
+// Allow dispatchProps to be overriden
+// so  props can be mocked & tested
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  ...ownProps,
+});
 
 export default connect(mapStateToProps, {
   saveEntityData,
   resetForm: actions.reset,
-})(MainContainer);
+}, mergeProps)(Main);

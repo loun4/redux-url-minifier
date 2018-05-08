@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render app 1`] = `
+<div>
+  <div
+    className="ui inverted menu"
+  >
+    <a
+      className="header item active"
+      href="/"
+      onClick={[Function]}
+    >
+      URL shortener
+    </a>
+    <div
+      className="right menu"
+    >
+      <a
+        className="item"
+        href="/admin"
+        onClick={[Function]}
+      >
+        Admin
+      </a>
+    </div>
+  </div>
+  <div
+    className="app ui container"
+  >
+    <div />
+    <div
+      className="ui negative message notification"
+    >
+      Something worng happened, please try again.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render error on get 1`] = `
+<div
+  className="app ui container"
+>
+  <div
+    className="ui negative message massive error-box"
+  >
+    Something worng happened, please try again.
+  </div>
+</div>
+`;
+
+exports[`Render error on save 1`] = `
+<div>
+  <div
+    className="ui inverted menu"
+  >
+    <a
+      className="header item active"
+      href="/"
+      onClick={[Function]}
+    >
+      URL shortener
+    </a>
+    <div
+      className="right menu"
+    >
+      <a
+        className="item"
+        href="/admin"
+        onClick={[Function]}
+      >
+        Admin
+      </a>
+    </div>
+  </div>
+  <div
+    className="app ui container"
+  >
+    <div />
+    <div
+      className="ui negative message notification is-visible"
+    >
+      Something worng happened, please try again.
+    </div>
+  </div>
+</div>
+`;

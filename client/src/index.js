@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { parse } from 'url';
 import { unregister } from './registerServiceWorker';
 import RouterService from './utils/router-service';
-import Routes from './routes';
+import Routes from './containers/routes';
 
 const render = (path = window.location.href) => {
   const state = {
@@ -13,7 +13,7 @@ const render = (path = window.location.href) => {
   };
 
   ReactDOM.render(
-    <Routes {...state} onNavigate={render} />,
+    <Routes {...state} />,
     document.getElementById('root'),
   );
 };

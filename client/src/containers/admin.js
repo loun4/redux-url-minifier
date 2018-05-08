@@ -10,7 +10,7 @@ import Signin from '../components/signin';
 import LinkForm from '../components/link-form';
 import LinkList from '../components/link-list';
 
-class AdminContainer extends Component {
+export class Admin extends Component {
   static propTypes = {
     session: PropTypes.shape({
       isAuthenticated: PropTypes.bool,
@@ -89,10 +89,18 @@ const mapStateToProps = ({
   session,
 });
 
+// Allow dispatchProps to be overriden
+// so  props can be mocked & tested
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  ...ownProps,
+});
+
 export default connect(mapStateToProps, {
   authenticate,
   fetchEntityData,
   saveEntityData,
   removeEntityData,
   resetForm: actions.reset,
-})(AdminContainer);
+}, mergeProps)(Admin);
