@@ -19,7 +19,7 @@ test('dispatch REQUEST_AUTHENTICATION then AUTHENTICATED', () => {
   });
 });
 
-test('dispatch REQUEST_AUTHENTICATION then AUTHENTICATION_FAILURE', () => {
+test('dispatch REQUEST_AUTHENTICATION then FAILED_AUTHENTICATION', () => {
   const store = mockStore({});
   fetch.mockRejectOnce({ status: 401 });
 

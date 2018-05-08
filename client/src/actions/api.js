@@ -1,6 +1,6 @@
 
 import Client from '../connectivity/api-client';
-import { apiGetError, apiSaveError, apiClearError } from './api-errors';
+import { apiClearError, apiGetError, apiSaveError } from './api-errors';
 
 export const REQUEST_ALL_DATA = 'REQUEST_ALL_DATA';
 export const REQUEST_SAVE_DATA = 'REQUEST_SAVE_DATA';
@@ -21,13 +21,13 @@ const requestAllData = entity => ({
   entity,
 });
 
-// Called create, update and delete, dispatch the related entity type
+// On create, update and delete, dispatch the related entity type
 const requestSaveData = entity => ({
   type: REQUEST_SAVE_DATA,
   entity,
 });
 
-// data collection received, dispatch the related entity type and collection
+// Data received, dispatch the related entity type and collection
 const receiveAllData = (entity, data) => ({
   type: RECEIVE_ALL_DATA,
   entity,
@@ -48,7 +48,7 @@ const receiveUpdateData = (entity, data) => ({
   data,
 });
 
-// Entry is removed, dispatch the related entity type and the removed entry
+// Entry removed - dispatch the related entity type and the removed entry
 const receiveRemoveData = (entity, data) => ({
   type: RECEIVE_REMOVE_DATA,
   entity,

@@ -424,7 +424,7 @@ exports[`Render loading icon if session is ready for auth 1`] = `
 </div>
 `;
 
-exports[`Render loading icon on fetching 1`] = `
+exports[`Render loading icon on fetch 1`] = `
 <div
   className="loader"
 >
@@ -437,7 +437,7 @@ exports[`Render loading icon on fetching 1`] = `
 </div>
 `;
 
-exports[`Render signin form is deauthenticated 1`] = `
+exports[`Render signin form if deauthenticated 1`] = `
 <div
   className="signin"
 >

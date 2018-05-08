@@ -67,13 +67,13 @@ exports[`/ render main component 1`] = `
     <div
       className="ui negative message notification"
     >
-      Something worng happened, please try again.
+      Something wrong happened, please try again.
     </div>
   </div>
 </div>
 `;
 
-exports[`/admin render main component 1`] = `
+exports[`/admin render admin component 1`] = `
 <div>
   <div
     className="ui inverted menu"
@@ -192,7 +192,7 @@ exports[`/admin render main component 1`] = `
     <div
       className="ui negative message notification"
     >
-      Something worng happened, please try again.
+      Something wrong happened, please try again.
     </div>
   </div>
 </div>
@@ -265,7 +265,7 @@ exports[`Render app 1`] = `
     <div
       className="ui negative message notification"
     >
-      Something worng happened, please try again.
+      Something wrong happened, please try again.
     </div>
   </div>
 </div>

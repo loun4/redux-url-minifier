@@ -11,7 +11,7 @@ import 'react-table/react-table.css';
 import '../css/semantic-ui-css/semantic.min.css';
 import '../css/app.css';
 
-const ERROR_MSG = 'Something worng happened, please try again.';
+const ERROR_MSG = 'Something wrong happened, please try again.';
 
 class App extends Component {
   static propTypes = {

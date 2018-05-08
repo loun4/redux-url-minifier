@@ -6,21 +6,21 @@ const { credentials } = require('../config');
 const { errorHandler, NotFoundError } = require('../middlewares/error');
 const shortener = require('../utils/shortener');
 const validate = require('../middlewares/validator');
-const LinkPackage = require('../models/link');
+const linkPackage = require('../models/link');
 
 const LinkRoutes = (db) => {
   const {
     Link,
-    LinkSchema,
-    LoadLinks,
-    LoadByLinkURL,
-    LoadById,
-  } = LinkPackage(db);
+    linkSchema,
+    loadLinks,
+    loadByLinkURL,
+    loadById,
+  } = linkPackage(db);
 
   const router = Router();
 
-  router.post('/link', validate(LinkSchema), (req, res, next) => (
-    LoadByLinkURL(req.body.linkURL)
+  router.post('/link', validate(linkSchema), (req, res, next) => (
+    loadByLinkURL(req.body.linkURL)
       .then((link) => {
         if (link !== null) {
           return link;
@@ -33,7 +33,7 @@ const LinkRoutes = (db) => {
       .catch(next)));
 
   router.get('/link', basicAuth(credentials), (req, res, next) =>
-    LoadLinks()
+    loadLinks()
       .then(links => links.map(link => link.toJSON()))
       .then(links => res.send(links))
       .catch(next));
@@ -44,7 +44,7 @@ const LinkRoutes = (db) => {
       return next({ name: NotFoundError });
     }
 
-    return LoadById(id)
+    return loadById(id)
       .then((link) => {
         if (link === null) {
           return Promise.reject(({ name: NotFoundError }));
@@ -62,7 +62,7 @@ const LinkRoutes = (db) => {
       return next({ name: NotFoundError });
     }
 
-    return LoadById(id)
+    return loadById(id)
       .then((link) => {
         if (link === null) {
           return Promise.reject(({ name: NotFoundError }));

@@ -20,7 +20,7 @@ test('/ render main component', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('/admin render main component', () => {
+test('/admin render admin component', () => {
   RouterService.navigate('/admin');
   const component = renderer.create(buildSubject());
   const tree = component.toJSON();

@@ -1,7 +1,7 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fetchEntityData, saveEntityData, removeEntityData } from '../../actions/api';
+import { fetchEntityData, removeEntityData, saveEntityData } from '../../actions/api';
 
 const links = [
   {
@@ -75,7 +75,7 @@ test('dispatch REQUEST_SAVE_DATA then RECEIVE_REMOVE_DATA after update', () => {
   });
 });
 
-test('dispatch API_GET_ERROR on error', () => {
+test('dispatch API_GET_ERROR on fetch error', () => {
   const store = mockStore({});
   fetch.resetMocks();
   fetch.mockResponse(JSON.stringify({}), { status: 401 });
@@ -122,7 +122,7 @@ test('dispatch API_SAVE_ERROR on remove error', () => {
   });
 });
 
-test('dispatch API_SAVE_ERROR and API_CLEAR_ERROR after timeout', () => {
+test('dispatch API_SAVE_ERROR and API_CLEAR_ERROR after setTimeout', () => {
   const store = mockStore({});
   jest.useFakeTimers();
   fetch.resetMocks();

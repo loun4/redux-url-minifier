@@ -27,21 +27,20 @@ test('Render main', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('Render loading icon on fetching', () => {
-  subject = buildSubject({
+test('Render loading icon on fetch', () => {
+  const component = renderer.create(buildSubject({
     link: {
       ...testStore.getState().link,
       isFetching: true,
     },
-  });
+  }));
 
-  const component = renderer.create(subject);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Render link preview', () => {
-  subject = buildSubject({
+  const component = renderer.create(buildSubject({
     link: {
       ...testStore.getState().link,
       models: [{
@@ -50,9 +49,8 @@ test('Render link preview', () => {
         shortURL: '/link/anId',
       }],
     },
-  });
+  }));
 
-  const component = renderer.create(subject);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -3,10 +3,10 @@ const { InternalError } = require('../middlewares/error');
 const shortener = require('../utils/shortener');
 
 
-const LinkPackage = (db) => {
+const linkPackage = (db) => {
   const collection = db.getCollection('links');
 
-  const LinkSchema = {
+  const linkSchema = {
     type: 'object',
     required: ['linkURL'],
     properties: {
@@ -26,7 +26,7 @@ const LinkPackage = (db) => {
     },
   };
 
-  const { properties: definitions } = LinkSchema;
+  const { properties: definitions } = linkSchema;
 
   class Link {
     constructor(raw) {
@@ -104,7 +104,7 @@ const LinkPackage = (db) => {
     }
   }
 
-  const LoadById = id => (
+  const loadById = id => (
     new Promise((resolve) => {
       const doc = collection.get(id);
       if (doc === null) {
@@ -115,7 +115,7 @@ const LinkPackage = (db) => {
     })
   );
 
-  const LoadByLinkURL = linkURL => (
+  const loadByLinkURL = linkURL => (
     new Promise((resolve) => {
       const doc = collection.findOne({ linkURL });
       if (doc === null) {
@@ -126,19 +126,19 @@ const LinkPackage = (db) => {
     })
   );
 
-  const LoadLinks = () => (
+  const loadLinks = () => (
     new Promise(resolve =>
       resolve(collection.find().map(doc => new Link(doc))))
   );
 
   return {
-    LinkSchema,
+    linkSchema,
     Link,
-    LoadByLinkURL,
-    LoadLinks,
-    LoadById,
+    loadByLinkURL,
+    loadLinks,
+    loadById,
   };
 };
 
 
-module.exports = LinkPackage;
+module.exports = linkPackage;

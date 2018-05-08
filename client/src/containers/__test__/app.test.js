@@ -31,25 +31,23 @@ test('Render app', () => {
 });
 
 test('Render error on get', () => {
-  subject = buildSubject({
+  const component = renderer.create(buildSubject({
     error: {
       type: 'get',
     },
-  });
+  }));
 
-  const component = renderer.create(subject);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Render error on save', () => {
-  subject = buildSubject({
+  const component = renderer.create(buildSubject({
     error: {
       type: 'save',
     },
-  });
+  }));
 
-  const component = renderer.create(subject);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -57,14 +55,13 @@ test('Render error on save', () => {
 test.only('Call authenticate on componentDidMount if session is ready for auth', () => {
   const authenticate = jest.fn();
 
-  subject = buildSubject({
+  mount(buildSubject({
     session: {
       ...testStore.getState().session,
       readyToAuthenticate: true,
     },
     authenticate,
-  });
+  }));
 
-  mount(subject);
   expect(authenticate).toHaveBeenCalled();
 });

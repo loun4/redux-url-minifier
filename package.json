@@ -16,10 +16,11 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "nodemon": "^1.18.3",
     "supertest": "^3.0.0"
   },
   "engines": {
-    "node": ">=9.11.1"
+    "node": ">=10.0.0"
   },
   "ava": {
     "files": [
@@ -38,7 +39,7 @@
   "scripts": {
     "test": "export NODE_ENV=test && ava",
     "start": "export NODE_ENV=developement && PORT=4200 nodemon --watch ./server --ignore ./server/resources/ ./server/api-starter.js",
-    "install": "cd client && yarn install && yarn build && cd ..",
+    "install": "cd client && npm install && npm run build && cd ..",
     "server": "cd ./server/resources && touch db.production.json && cd .. && node ./api-starter.js"
   }
 }

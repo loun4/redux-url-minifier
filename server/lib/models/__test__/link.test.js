@@ -1,12 +1,12 @@
 
 const test = require('ava');
 const { start, stop } = require('../../setup-test');
-const LinkPackage = require('../link');
+const linkPackage = require('../link');
 
 test.before(start);
 
 test('Hydrate from raw data', (t) => {
-  const { Link } = LinkPackage(t.context.db);
+  const { Link } = linkPackage(t.context.db);
   const model = new Link({ $loki: 1, linkURL: 'http://www.google.fr' });
 
   t.deepEqual(model.toJSON(), {
@@ -18,7 +18,7 @@ test('Hydrate from raw data', (t) => {
 });
 
 test('Increment visits', (t) => {
-  const { Link } = LinkPackage(t.context.db);
+  const { Link } = linkPackage(t.context.db);
   const model = new Link({ $loki: 1, linkURL: 'http://www.google.fr' });
   model.incrementVisit();
 
@@ -26,7 +26,7 @@ test('Increment visits', (t) => {
 });
 
 test('Create', async (t) => {
-  const { Link } = LinkPackage(t.context.db);
+  const { Link } = linkPackage(t.context.db);
   const model = await new Link({ linkURL: 'http://www.google.fr' }).create();
 
   t.truthy(model.toJSON().id);
@@ -34,7 +34,7 @@ test('Create', async (t) => {
 });
 
 test('Update', async (t) => {
-  const { Link } = LinkPackage(t.context.db);
+  const { Link } = linkPackage(t.context.db);
   const model = await new Link({ linkURL: 'http://www.google.fr' }).create();
   await model.incrementVisit().update();
 
@@ -42,7 +42,7 @@ test('Update', async (t) => {
 });
 
 test('Delete', async (t) => {
-  const { Link } = LinkPackage(t.context.db);
+  const { Link } = linkPackage(t.context.db);
   const model = await new Link({ linkURL: 'http://www.link1.com' }).create();
   await model.remove();
 
@@ -51,7 +51,7 @@ test('Delete', async (t) => {
 });
 
 test('Convert to db document', async (t) => {
-  const { Link } = LinkPackage(t.context.db);
+  const { Link } = linkPackage(t.context.db);
   const model = await new Link({ linkURL: 'http://www.link2.com' }).create();
   const expectedDoc = {
     $loki: model.rawId,
@@ -64,25 +64,25 @@ test('Convert to db document', async (t) => {
 });
 
 test('Load by id', async (t) => {
-  const { LoadById, Link } = LinkPackage(t.context.db);
+  const { loadById, Link } = linkPackage(t.context.db);
   const model = await new Link({ linkURL: 'http://www.link3.com' }).create();
-  const requestedModel = await LoadById(model.rawId);
+  const requestedModel = await loadById(model.rawId);
 
   t.deepEqual(model, requestedModel);
 });
 
 test('Load by linkURL', async (t) => {
-  const { LoadByLinkURL, Link } = LinkPackage(t.context.db);
+  const { loadByLinkURL, Link } = linkPackage(t.context.db);
   const model = await new Link({ linkURL: 'http://www.link4.com' }).create();
-  const requestedModel = await LoadByLinkURL(model.toJSON().linkURL);
+  const requestedModel = await loadByLinkURL(model.toJSON().linkURL);
 
   t.deepEqual(model, requestedModel);
 });
 
 test('Load links', async (t) => {
-  const { LoadLinks, Link } = LinkPackage(t.context.db);
+  const { loadLinks, Link } = linkPackage(t.context.db);
   await new Link({ linkURL: 'http://www.link5.com' }).create();
-  const requestedModels = await LoadLinks();
+  const requestedModels = await loadLinks();
 
   t.truthy(requestedModels.length);
 });

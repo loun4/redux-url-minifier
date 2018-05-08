@@ -1,5 +1,9 @@
 # URL Shortener
 
+Demo [https://url--shortener.herokuapp.com/](https://url--shortener.herokuapp.com/)
+
+Login/Password: test/test
+
 Fullstack Javascript Web application.
 
 ## Back-end
@@ -22,6 +26,7 @@ npm test
 
 ## Front-end
 * React
+* Redux
 * Jest
 
 ### run dev server
@@ -100,6 +105,7 @@ GET /link
 Require authorization header with basic authentication
 
 **cURL (example)**
+
 ```curl
 curl -X GET \
   http://localhost:4200/link \
@@ -161,6 +167,7 @@ curl -X GET \
 Redirect 301 to the original URL
 
 **Error codes**
+
 code            | description
 ----------------|------------------
 `404`           | No such item

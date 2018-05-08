@@ -63,7 +63,7 @@ exports[`Render link preview 1`] = `
 </div>
 `;
 
-exports[`Render loading icon on fetching 1`] = `
+exports[`Render loading icon on fetch 1`] = `
 <div
   className="loader"
 >

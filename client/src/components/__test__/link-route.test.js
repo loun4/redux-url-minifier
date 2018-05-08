@@ -25,7 +25,7 @@ test('Go to route on click', () => {
   expect(window.location.href).toContain('/myRoute?active=true&sort=desc');
 });
 
-test('Handle active class if route match', () => {
+test('Switch to active class if route match', () => {
   RouterService.navigate('/myRoute', { active: true, sort: 'desc' });
   const component = mount(subject, { context: { router: RouterService } });
 
