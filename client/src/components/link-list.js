@@ -57,10 +57,11 @@ export default class LinkList extends Component {
   }
 
   render() {
-    const { link: { models } } = this.props;
+    const { link: { isSaving, models } } = this.props;
 
     return (
       <ReactTable
+        loading={isSaving}
         data={models}
         columns={this.getColumns()}
         minRows={0}
