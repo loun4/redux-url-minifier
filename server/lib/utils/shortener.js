@@ -10,7 +10,7 @@ const shortener = {
       return null;
     }
 
-    return hashids.encode(id);
+    return hashids.encode(id, id);
   },
 
   decode: (shortURL) => {

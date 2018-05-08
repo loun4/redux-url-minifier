@@ -10,7 +10,7 @@ test('Hydrate from raw data', (t) => {
   const model = new Link({ $loki: 1, linkURL: 'http://www.google.fr' });
 
   t.deepEqual(model.toJSON(), {
-    id: 'Og',
+    id: '6XIv',
     visit: 0,
     linkURL: 'http://www.google.fr',
     meta: { created: null },
