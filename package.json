@@ -16,7 +16,7 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
-    "nodemon": "^1.18.3",
+    "nodemon": "^1.18.4",
     "supertest": "^3.0.0"
   },
   "engines": {
@@ -38,7 +38,7 @@
   },
   "scripts": {
     "test": "export NODE_ENV=test && ava",
-    "start": "export NODE_ENV=developement && PORT=4200 nodemon --watch ./server --ignore ./server/resources/ ./server/api-starter.js",
+    "start": "export NODE_ENV=developement && PORT=4200 ./node_modules/nodemon/bin/nodemon.js index.js --watch ./server --ignore ./server/resources/ ./server/api-starter.js",
     "install": "cd client && npm install && npm run build && cd ..",
     "server": "cd ./server/resources && touch db.production.json && cd .. && node ./api-starter.js"
   }
