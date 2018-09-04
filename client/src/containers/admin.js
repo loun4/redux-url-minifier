@@ -1,14 +1,14 @@
 
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { fetchEntityData, saveEntityData, removeEntityData } from '../actions/api';
+import { fetchEntityData, removeEntityData, saveEntityData } from '../actions/api';
 import { authenticate } from '../actions/session';
-import Loader from '../components/loader';
-import Signin from '../components/signin';
 import LinkForm from '../components/link-form';
 import LinkList from '../components/link-list';
+import Loader from '../components/loader';
+import Signin from '../components/signin';
 
 export class Admin extends Component {
   static propTypes = {
@@ -36,6 +36,12 @@ export class Admin extends Component {
     removeEntityData: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
   };
+
+  componentDidMount() {
+    if (this.props.session.isAuthenticated) {
+      this.props.fetchEntityData({ entity: 'link', auth: true });
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.session.isAuthenticated && !this.props.session.isAuthenticated) {

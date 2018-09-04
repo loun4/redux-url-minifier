@@ -1,11 +1,11 @@
 
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import RouterProvider from '../router-provider';
 import store from '../../store';
 import ConnectedAdmin, { Admin } from '../admin';
+import RouterProvider from '../router-provider';
 
 let subject;
 const testStore = store();
@@ -70,7 +70,7 @@ test('Render link form & table if authenticated', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('Call fetchEntityData', () => {
+test('Call fetchEntityData on componentWillReceiveProps', () => {
   const props = mount(subject).find(Admin).first().props();
   const fetchEntityData = jest.fn();
   const component = shallow(<Admin {...props} fetchEntityData={fetchEntityData} />);
@@ -81,6 +81,24 @@ test('Call fetchEntityData', () => {
       isAuthenticated: true,
     },
   });
+
+  expect(fetchEntityData).toHaveBeenCalled();
+});
+
+test('Call fetchEntityData on componentDidMount if already authenticated', () => {
+  const props = mount(subject).find(Admin).first().props();
+  const fetchEntityData = jest.fn();
+
+  const sessionProps = {
+    ...testStore.getState().session,
+    isAuthenticated: true,
+  };
+
+  shallow(<Admin
+    {...props}
+    session={sessionProps}
+    fetchEntityData={fetchEntityData}
+  />);
 
   expect(fetchEntityData).toHaveBeenCalled();
 });
