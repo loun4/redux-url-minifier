@@ -1,11 +1,11 @@
 
+import { mount } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import RouterProvider from '../router-provider';
 import store from '../../store';
 import App from '../app';
+import RouterProvider from '../router-provider';
 
 let subject;
 const testStore = store();
@@ -52,7 +52,7 @@ test('Render error on save', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test.only('Call authenticate on componentDidMount if session is ready for auth', () => {
+test('Call authenticate on componentDidMount if session is ready for auth', () => {
   const authenticate = jest.fn();
 
   mount(buildSubject({

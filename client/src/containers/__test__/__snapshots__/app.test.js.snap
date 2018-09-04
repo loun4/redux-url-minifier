@@ -31,7 +31,7 @@ exports[`Render app 1`] = `
     <div
       className="ui negative message notification"
     >
-      Something worng happened, please try again.
+      Something wrong happened, please try again.
     </div>
   </div>
 </div>
@@ -44,7 +44,7 @@ exports[`Render error on get 1`] = `
   <div
     className="ui negative message massive error-box"
   >
-    Something worng happened, please try again.
+    Something wrong happened, please try again.
   </div>
 </div>
 `;
@@ -80,7 +80,7 @@ exports[`Render error on save 1`] = `
     <div
       className="ui negative message notification is-visible"
     >
-      Something worng happened, please try again.
+      Something wrong happened, please try again.
     </div>
   </div>
 </div>
