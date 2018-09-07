@@ -1,7 +1,10 @@
-
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { apiGetError, apiSaveError, apiClearError } from '../../actions/api-errors';
+import {
+  apiGetError,
+  apiSaveError,
+  apiClearError,
+} from '../../actions/api-errors';
 
 const mockStore = configureMockStore([thunk]);
 

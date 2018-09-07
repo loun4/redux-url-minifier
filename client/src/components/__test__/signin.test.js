@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { createStore, combineReducers } from 'redux';
 import { createForms } from 'react-redux-form';
@@ -47,8 +46,14 @@ test('Show errors if invalid login & password on submit', () => {
   const form = component.find('form').first();
 
   form.simulate('submit');
-  const loginError = component.find('#error-login').first().text();
-  const passwordError = component.find('#error-password').first().text();
+  const loginError = component
+    .find('#error-login')
+    .first()
+    .text();
+  const passwordError = component
+    .find('#error-password')
+    .first()
+    .text();
 
   expect(loginError).toEqual('login is required');
   expect(passwordError).toEqual('password is required');
@@ -61,11 +66,17 @@ test('Show errors when form is touched', () => {
   const password = component.find('[type="password"]').first();
 
   login.simulate('blur');
-  const loginError = component.find('#error-login').first().text();
+  const loginError = component
+    .find('#error-login')
+    .first()
+    .text();
   expect(loginError).toEqual('login is required');
 
   password.simulate('blur');
-  const passwordError = component.find('#error-password').first().text();
+  const passwordError = component
+    .find('#error-password')
+    .first()
+    .text();
   expect(passwordError).toEqual('password is required');
 });
 

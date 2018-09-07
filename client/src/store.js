@@ -1,4 +1,3 @@
-
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
@@ -8,7 +7,9 @@ import session from './reducers/session';
 import error from './reducers/api-errors';
 
 const loggerMiddleware = createLogger({
-  predicate() { return process.env.NODE_ENV === 'development'; },
+  predicate() {
+    return process.env.NODE_ENV === 'development';
+  },
 });
 
 const forms = createForms({
@@ -30,9 +31,6 @@ export default function configureStore(preloadedState) {
       error,
     }),
     preloadedState,
-    applyMiddleware(
-      thunkMiddleware,
-      loggerMiddleware,
-    ),
+    applyMiddleware(thunkMiddleware, loggerMiddleware)
   );
 }

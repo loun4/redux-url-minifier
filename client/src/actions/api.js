@@ -1,4 +1,3 @@
-
 import Client from '../connectivity/api-client';
 import { apiClearError, apiGetError, apiSaveError } from './api-errors';
 
@@ -10,7 +9,7 @@ export const RECEIVE_NEW_DATA = 'RECEIVE_NEW_DATA';
 export const RECEIVE_UPDATE_DATA = 'RECEIVE_UPDATE_DATA';
 export const RECEIVE_REMOVE_DATA = 'RECEIVE_REMOVE_DATA';
 
-const handleSaveError = dispatch => (e) => {
+const handleSaveError = dispatch => e => {
   dispatch(apiSaveError(e));
   setTimeout(() => dispatch(apiClearError()), 4000);
 };
@@ -60,7 +59,7 @@ export const fetchEntityData = ({
   entity,
   auth = false,
   query = {},
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(requestAllData(entity));
 
   return Client.request({
@@ -79,7 +78,7 @@ export const saveEntityData = ({
   model,
   auth = false,
   query = {},
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(requestSaveData(entity));
 
   const updateMode = !!model.id;
@@ -91,7 +90,7 @@ export const saveEntityData = ({
     auth,
     query,
   })
-    .then((data) => {
+    .then(data => {
       if (updateMode) {
         return dispatch(receiveUpdateData(entity, data));
       }
@@ -106,7 +105,7 @@ export const removeEntityData = ({
   model,
   auth = true,
   query = {},
-}) => (dispatch) => {
+}) => dispatch => {
   dispatch(requestSaveData(entity));
 
   return Client.request({

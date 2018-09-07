@@ -1,4 +1,3 @@
-
 import entitiesReducer, { initialState } from '../entities';
 
 const links = [
@@ -66,12 +65,20 @@ test('handle RECEIVE_NEW_DATA', () => {
   const action = { type: 'RECEIVE_NEW_DATA', entity: 'link', data: newLink };
 
   expect(entitiesReducer(populatedState, action)).toEqual({
-    link: { isFetching: false, isSaving: false, models: [newLink].concat(links) },
+    link: {
+      isFetching: false,
+      isSaving: false,
+      models: [newLink].concat(links),
+    },
   });
 });
 
 test('handle RECEIVE_UPDATE_DATA', () => {
-  const action = { type: 'RECEIVE_UPDATE_DATA', entity: 'link', data: updatedLink };
+  const action = {
+    type: 'RECEIVE_UPDATE_DATA',
+    entity: 'link',
+    data: updatedLink,
+  };
   const state = {
     link: {
       ...populatedState.link,
@@ -80,12 +87,20 @@ test('handle RECEIVE_UPDATE_DATA', () => {
   };
 
   expect(entitiesReducer(state, action)).toEqual({
-    link: { isFetching: false, isSaving: false, models: links.concat(updatedLink) },
+    link: {
+      isFetching: false,
+      isSaving: false,
+      models: links.concat(updatedLink),
+    },
   });
 });
 
 test('handle RECEIVE_REMOVE_DATA', () => {
-  const action = { type: 'RECEIVE_REMOVE_DATA', entity: 'link', data: links[0] };
+  const action = {
+    type: 'RECEIVE_REMOVE_DATA',
+    entity: 'link',
+    data: links[0],
+  };
   const state = {
     link: {
       ...populatedState.link,

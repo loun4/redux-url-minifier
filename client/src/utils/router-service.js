@@ -1,7 +1,5 @@
-
 import { parse, format } from 'url';
 import EventEmitter from 'events';
-
 
 class RouterService extends EventEmitter {
   navigate(to, query = {}) {

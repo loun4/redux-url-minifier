@@ -1,4 +1,3 @@
-
 import apiErrors from '../api-errors';
 
 test('handle API_GET_ERROR', () => {

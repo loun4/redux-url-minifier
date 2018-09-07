@@ -1,8 +1,6 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 
 export default class LinkRoute extends Component {
   static contextTypes = {
@@ -21,23 +19,18 @@ export default class LinkRoute extends Component {
     className: null,
   };
 
-  handleNavigation = (e) => {
+  handleNavigation = e => {
     e.preventDefault();
 
     const { router } = this.context;
     const { to, query } = this.props;
 
     router.navigate(to, query);
-  }
+  };
 
   render() {
     const { router } = this.context;
-    const {
-      to,
-      query,
-      children,
-      className,
-    } = this.props;
+    const { to, query, children, className } = this.props;
 
     const href = router.getFullPath(to, query);
 

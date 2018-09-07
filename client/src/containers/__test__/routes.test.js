@@ -1,11 +1,9 @@
-
 import React from 'react';
 import renderer from 'react-test-renderer';
 import RouterService from '../../utils/router-service';
 import Routes from '../routes';
 
-const buildSubject = () =>
-  <Routes {...RouterService.state} />;
+const buildSubject = () => <Routes {...RouterService.state} />;
 
 test('Render app', () => {
   const component = renderer.create(buildSubject());

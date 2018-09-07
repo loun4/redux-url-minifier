@@ -1,7 +1,10 @@
-
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fetchEntityData, removeEntityData, saveEntityData } from '../../actions/api';
+import {
+  fetchEntityData,
+  removeEntityData,
+  saveEntityData,
+} from '../../actions/api';
 
 const links = [
   {
@@ -39,7 +42,10 @@ test('dispatch REQUEST_SAVE_DATA then RECEIVE_NEW_DATA after create', () => {
     { type: 'RECEIVE_NEW_DATA', entity: 'link', data: links[0] },
   ];
 
-  const payload = { entity: 'link', model: { linkURL: 'http://www.google.fr' } };
+  const payload = {
+    entity: 'link',
+    model: { linkURL: 'http://www.google.fr' },
+  };
   return store.dispatch(saveEntityData(payload)).then(() => {
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -135,12 +141,15 @@ test('dispatch API_SAVE_ERROR and API_CLEAR_ERROR after setTimeout', () => {
 
   const payload = { entity: 'link', model: links[0] };
 
-  return store.dispatch(saveEntityData(payload)).then(() => {
-    expect(store.getActions()).toEqual(expectedActions);
-  }).then(() => {
-    setTimeout(() => {
-      expect(store.getActions()).toContainEqual({ type: 'API_CLEAR_ERROR' });
-    }, 4000);
-    jest.runAllTimers();
-  });
+  return store
+    .dispatch(saveEntityData(payload))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    })
+    .then(() => {
+      setTimeout(() => {
+        expect(store.getActions()).toContainEqual({ type: 'API_CLEAR_ERROR' });
+      }, 4000);
+      jest.runAllTimers();
+    });
 });

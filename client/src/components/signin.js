@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Control, Form, Errors } from 'react-redux-form';
@@ -17,7 +16,10 @@ export default class signinForm extends Component {
   }
 
   render() {
-    const { onSubmit, form: { login, password } } = this.props;
+    const {
+      onSubmit,
+      form: { login, password },
+    } = this.props;
     const isLoginInvalid = login.touched && !login.valid;
     const isPasswordInvalid = password.touched && !password.valid;
     const isFormInvalid = isLoginInvalid || isPasswordInvalid;
@@ -28,7 +30,11 @@ export default class signinForm extends Component {
           <h2 className="ui teal image header">
             <div className="content">Log-in</div>
           </h2>
-          <Form model="signinForm"className="ui large form" onSubmit={onSubmit}>
+          <Form
+            model="signinForm"
+            className="ui large form"
+            onSubmit={onSubmit}
+          >
             <div className="ui stacked segment">
               <div className={classNames('field', { error: isLoginInvalid })}>
                 <div className="ui left icon input">
@@ -42,7 +48,9 @@ export default class signinForm extends Component {
                   />
                 </div>
               </div>
-              <div className={classNames('field', { error: isPasswordInvalid })}>
+              <div
+                className={classNames('field', { error: isPasswordInvalid })}
+              >
                 <div className="ui left icon input">
                   <i className="lock icon" />
                   <Control.text
@@ -55,10 +63,17 @@ export default class signinForm extends Component {
                   />
                 </div>
               </div>
-              <button className="ui fluid large teal submit button" type="submit">Login</button>
+              <button
+                className="ui fluid large teal submit button"
+                type="submit"
+              >
+                Login
+              </button>
             </div>
 
-            <div className={classNames({ 'ui negative message': isFormInvalid })}>
+            <div
+              className={classNames({ 'ui negative message': isFormInvalid })}
+            >
               <ul className="list">
                 {['login', 'password'].map(field => (
                   <Errors
@@ -70,7 +85,8 @@ export default class signinForm extends Component {
                     messages={{
                       isNotEmptyString: `${field} is required`,
                     }}
-                  />))}
+                  />
+                ))}
               </ul>
             </div>
 
@@ -78,7 +94,9 @@ export default class signinForm extends Component {
               className="ui negative message"
               model="signinForm"
               show="submitFailed"
-              component={() => <span>Connexion refused, please check your credentials</span>}
+              component={() => (
+                <span>Connexion refused, please check your credentials</span>
+              )}
             />
           </Form>
         </div>
@@ -86,4 +104,3 @@ export default class signinForm extends Component {
     );
   }
 }
-

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { createStore, combineReducers } from 'redux';
 import { createForms } from 'react-redux-form';

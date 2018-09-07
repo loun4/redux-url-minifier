@@ -1,4 +1,3 @@
-
 import session, { initialState } from '../session';
 
 test('handle REQUEST_AUTHENTICATION', () => {

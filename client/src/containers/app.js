@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -74,10 +73,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({
-  session,
-  error,
-}) => ({
+const mapStateToProps = ({ session, error }) => ({
   session,
   error,
 });
@@ -90,8 +86,11 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
 });
 
-
-export default connect(mapStateToProps, {
-  authenticate,
-  deauthenticate,
-}, mergeProps)(App);
+export default connect(
+  mapStateToProps,
+  {
+    authenticate,
+    deauthenticate,
+  },
+  mergeProps
+)(App);

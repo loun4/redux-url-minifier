@@ -1,4 +1,3 @@
-
 export const API_GET_ERROR = 'API_GET_ERROR';
 export const API_SAVE_ERROR = 'API_SAVE_ERROR';
 export const API_CLEAR_ERROR = 'API_CLEAR_ERROR';

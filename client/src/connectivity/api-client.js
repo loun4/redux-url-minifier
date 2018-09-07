@@ -1,13 +1,14 @@
-
 import 'cross-fetch';
 import store from 'store2';
 import querystring from 'querystring';
 
 const { REACT_APP_REST_URL: ENDPOINT } = process.env;
 
-const validateCredentials = (credentials) => {
+const validateCredentials = credentials => {
   if (!credentials.login || !credentials.password) {
-    throw new Error('credentials should include both login and password fields');
+    throw new Error(
+      'credentials should include both login and password fields'
+    );
   }
 };
 
@@ -47,7 +48,7 @@ class Client {
       const { url, ...params } = this.parseRequestParams(options);
 
       return fetch(url, params)
-        .then((res) => {
+        .then(res => {
           if (!res.ok) {
             return res.json().then(() => {
               reject({
@@ -59,8 +60,7 @@ class Client {
 
           return resolve(res.json());
         })
-        .catch(() =>
-          reject({ status: null, statusText: 'networkIssue' }));
+        .catch(() => reject({ status: null, statusText: 'networkIssue' }));
     });
   }
 
@@ -72,9 +72,14 @@ class Client {
     query = {},
   }) {
     const credentials = this.getCredentials();
-    const basicAuth = auth && credentials ? {
-      Authorization: `Basic ${btoa(`${credentials.login}:${credentials.password}`)}`,
-    } : null;
+    const basicAuth =
+      auth && credentials
+        ? {
+            Authorization: `Basic ${btoa(
+              `${credentials.login}:${credentials.password}`
+            )}`,
+          }
+        : null;
 
     let url = `${ENDPOINT || ''}/${endpoint}`;
     if (Object.keys(query).length > 0) {

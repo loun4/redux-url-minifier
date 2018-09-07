@@ -1,4 +1,3 @@
-
 import { actions } from 'react-redux-form';
 import { apiClearError } from './api-errors';
 
@@ -25,7 +24,7 @@ const deauthenticated = () => ({
   type: DEAUTHENTICATED,
 });
 
-export const authenticate = (credentials = null) => (dispatch) => {
+export const authenticate = (credentials = null) => dispatch => {
   dispatch(apiClearError());
   dispatch(requestAuthentication());
   dispatch(actions.setPending('signinForm', true));
@@ -40,7 +39,7 @@ export const authenticate = (credentials = null) => (dispatch) => {
       dispatch(authenticated());
       Client.saveCredentials(credentials);
     })
-    .catch((e) => {
+    .catch(e => {
       Client.resetCredentials();
       dispatch(failedAuthentication());
       throw e;
@@ -50,7 +49,7 @@ export const authenticate = (credentials = null) => (dispatch) => {
   return req;
 };
 
-export const deauthenticate = () => (dispatch) => {
+export const deauthenticate = () => dispatch => {
   Client.resetCredentials();
   dispatch(apiClearError());
   dispatch(deauthenticated());

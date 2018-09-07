@@ -1,15 +1,12 @@
-
 import {
-  REQUEST_ALL_DATA,
   RECEIVE_ALL_DATA,
-  REQUEST_SAVE_DATA,
   RECEIVE_NEW_DATA,
-  RECEIVE_UPDATE_DATA,
   RECEIVE_REMOVE_DATA,
+  RECEIVE_UPDATE_DATA,
+  REQUEST_ALL_DATA,
+  REQUEST_SAVE_DATA,
 } from '../actions/api';
-
 import { DEAUTHENTICATED } from '../actions/session';
-
 
 const { REACT_APP_REST_URL: ENDPOINT } = process.env;
 
@@ -25,24 +22,21 @@ const Models = {
   }),
 };
 
-const addNewModel = (models, newModel) => {
-  let mutateModels = [...models];
-  mutateModels = mutateModels.filter(({ id }) => id !== newModel.id);
-  mutateModels.unshift(newModel);
-  return mutateModels;
-};
+const addNewModel = (models, newModel) => [
+  newModel,
+  ...models.filter(({ id }) => id !== newModel.id),
+];
 
-const updateModel = (models, updateModel) =>
-  models
-    .map((model) => {
-      if (model.id === updateModel.id) { return updateModel; }
-      return model;
-    });
+const updateModel = (models, updatedModel) =>
+  models.map(model => {
+    if (model.id === updatedModel.id) {
+      return updatedModel;
+    }
+    return model;
+  });
 
 const removeModel = (models, removedId) =>
-  models
-    .filter(({ id }) => id !== removedId);
-
+  models.filter(({ id }) => id !== removedId);
 
 const initialEntityState = {
   isFetching: false,
@@ -55,10 +49,7 @@ export const initialState = {
   // ... other entities
 };
 
-const entity = (
-  state = initialState,
-  { type, entity, data: rawData },
-) => {
+const entity = (state = initialState, { type, entity, data: rawData }) => {
   const entityState = state[entity];
   const EntityModel = Models[entity];
 

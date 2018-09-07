@@ -1,4 +1,3 @@
-
 import { isValidURL, isNotEmptyString } from '../validator';
 
 test('Validate URL', () => {

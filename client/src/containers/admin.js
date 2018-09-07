@@ -1,9 +1,12 @@
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { fetchEntityData, removeEntityData, saveEntityData } from '../actions/api';
+import {
+  fetchEntityData,
+  removeEntityData,
+  saveEntityData,
+} from '../actions/api';
 import { authenticate } from '../actions/session';
 import LinkForm from '../components/link-form';
 import LinkList from '../components/link-list';
@@ -20,11 +23,13 @@ export class Admin extends Component {
     link: PropTypes.shape({
       isFetching: PropTypes.bool,
       isSaving: PropTypes.bool,
-      models: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        linkURL: PropTypes.string,
-        shortURL: PropTypes.string,
-      })),
+      models: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          linkURL: PropTypes.string,
+          shortURL: PropTypes.string,
+        })
+      ),
     }).isRequired,
     forms: PropTypes.shape({
       signinForm: PropTypes.shape({}),
@@ -44,18 +49,21 @@ export class Admin extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.session.isAuthenticated && !this.props.session.isAuthenticated) {
+    if (
+      nextProps.session.isAuthenticated &&
+      !this.props.session.isAuthenticated
+    ) {
       this.props.fetchEntityData({ entity: 'link', auth: true });
     }
   }
 
-  handleLinkCreate = (model) => {
+  handleLinkCreate = model => {
     this.props.saveEntityData({ entity: 'link', model });
-  }
+  };
 
-  handleLinkRemove = (model) => {
+  handleLinkRemove = model => {
     this.props.removeEntityData({ entity: 'link', model });
-  }
+  };
 
   render() {
     const {
@@ -76,7 +84,11 @@ export class Admin extends Component {
 
     return isAuthenticated ? (
       <div>
-        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} onReset={resetForm} />
+        <LinkForm
+          form={linkForm}
+          onSubmit={this.handleLinkCreate}
+          onReset={resetForm}
+        />
         <LinkList link={link} onRemove={this.handleLinkRemove} />
       </div>
     ) : (
@@ -85,11 +97,7 @@ export class Admin extends Component {
   }
 }
 
-const mapStateToProps = ({
-  forms,
-  entities: { link },
-  session,
-}) => ({
+const mapStateToProps = ({ forms, entities: { link }, session }) => ({
   forms,
   link,
   session,
@@ -103,10 +111,14 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
 });
 
-export default connect(mapStateToProps, {
-  authenticate,
-  fetchEntityData,
-  saveEntityData,
-  removeEntityData,
-  resetForm: actions.reset,
-}, mergeProps)(Admin);
+export default connect(
+  mapStateToProps,
+  {
+    authenticate,
+    fetchEntityData,
+    saveEntityData,
+    removeEntityData,
+    resetForm: actions.reset,
+  },
+  mergeProps
+)(Admin);

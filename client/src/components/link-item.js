@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -26,8 +25,9 @@ export default class LinkItem extends Component {
     fakeField.remove();
 
     this.setState({ isCopied: true }, () =>
-      setTimeout(() => this.setState({ isCopied: false }), 1000));
-  }
+      setTimeout(() => this.setState({ isCopied: false }), 1000)
+    );
+  };
 
   render() {
     const { url, className } = this.props;
@@ -35,11 +35,7 @@ export default class LinkItem extends Component {
 
     return (
       <div className={classNames('ui buttons', className)}>
-        <a
-          href={url}
-          className="ui button"
-          target="_blank"
-        >
+        <a href={url} className="ui button" target="_blank">
           <i className="external alternate icon" />
           {url}
         </a>
@@ -54,4 +50,3 @@ export default class LinkItem extends Component {
     );
   }
 }
-

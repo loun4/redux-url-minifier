@@ -1,4 +1,3 @@
-
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -29,24 +28,28 @@ test('Render admin', () => {
 });
 
 test('Render loading icon on fetch', () => {
-  const component = renderer.create(buildSubject({
-    session: {
-      ...testStore.getState().session,
-      isFetching: true,
-    },
-  }));
+  const component = renderer.create(
+    buildSubject({
+      session: {
+        ...testStore.getState().session,
+        isFetching: true,
+      },
+    })
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Render loading icon if session is ready for auth', () => {
-  const component = renderer.create(buildSubject({
-    session: {
-      ...testStore.getState().session,
-      readyToAuthenticate: true,
-    },
-  }));
+  const component = renderer.create(
+    buildSubject({
+      session: {
+        ...testStore.getState().session,
+        readyToAuthenticate: true,
+      },
+    })
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -59,21 +62,28 @@ test('Render signin form if deauthenticated', () => {
 });
 
 test('Render link form & table if authenticated', () => {
-  const component = renderer.create(buildSubject({
-    session: {
-      ...testStore.getState().session,
-      isAuthenticated: true,
-    },
-  }));
+  const component = renderer.create(
+    buildSubject({
+      session: {
+        ...testStore.getState().session,
+        isAuthenticated: true,
+      },
+    })
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Call fetchEntityData on componentWillReceiveProps', () => {
-  const props = mount(subject).find(Admin).first().props();
+  const props = mount(subject)
+    .find(Admin)
+    .first()
+    .props();
   const fetchEntityData = jest.fn();
-  const component = shallow(<Admin {...props} fetchEntityData={fetchEntityData} />);
+  const component = shallow(
+    <Admin {...props} fetchEntityData={fetchEntityData} />
+  );
 
   component.setProps({
     session: {
@@ -86,7 +96,10 @@ test('Call fetchEntityData on componentWillReceiveProps', () => {
 });
 
 test('Call fetchEntityData on componentDidMount if already authenticated', () => {
-  const props = mount(subject).find(Admin).first().props();
+  const props = mount(subject)
+    .find(Admin)
+    .first()
+    .props();
   const fetchEntityData = jest.fn();
 
   const sessionProps = {
@@ -94,11 +107,13 @@ test('Call fetchEntityData on componentDidMount if already authenticated', () =>
     isAuthenticated: true,
   };
 
-  shallow(<Admin
-    {...props}
-    session={sessionProps}
-    fetchEntityData={fetchEntityData}
-  />);
+  shallow(
+    <Admin
+      {...props}
+      session={sessionProps}
+      fetchEntityData={fetchEntityData}
+    />
+  );
 
   expect(fetchEntityData).toHaveBeenCalled();
 });

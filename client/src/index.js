@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { parse } from 'url';
@@ -12,10 +11,7 @@ const render = (path = window.location.href) => {
     query: parse(path, true).query,
   };
 
-  ReactDOM.render(
-    <Routes {...state} />,
-    document.getElementById('root'),
-  );
+  ReactDOM.render(<Routes {...state} />, document.getElementById('root'));
 };
 
 window.addEventListener('popstate', () => render());

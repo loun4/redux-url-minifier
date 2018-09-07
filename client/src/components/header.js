@@ -1,22 +1,15 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import LinkRoute from './link-route';
 
 const Header = ({ isAuthenticated, deauthenticate }) => (
   <div className="ui inverted menu">
-    <LinkRoute
-      to="/"
-      className="header item"
-    >
+    <LinkRoute to="/" className="header item">
       URL shortener
     </LinkRoute>
 
     <div className="right menu">
-      <LinkRoute
-        to="/admin"
-        className="item"
-      >
+      <LinkRoute to="/admin" className="item">
         Admin
       </LinkRoute>
 

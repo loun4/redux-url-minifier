@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -6,7 +5,6 @@ import { actions } from 'react-redux-form';
 import { saveEntityData } from '../actions/api';
 import LinkForm from '../components/link-form';
 import LinkItem from '../components/link-item';
-
 
 class Main extends Component {
   static propTypes = {
@@ -16,32 +14,33 @@ class Main extends Component {
     url: PropTypes.string,
     saveEntityData: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     url: null,
   };
 
-  handleLinkCreate = (model) => {
+  handleLinkCreate = model => {
     this.props.saveEntityData({ entity: 'link', model });
-  }
+  };
 
   render() {
     const { linkForm, resetForm, url } = this.props;
 
     return (
       <div>
-        <LinkForm form={linkForm} onSubmit={this.handleLinkCreate} onReset={resetForm} />
+        <LinkForm
+          form={linkForm}
+          onSubmit={this.handleLinkCreate}
+          onReset={resetForm}
+        />
         {url && <LinkItem url={url} />}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({
-  forms: { linkForm },
-  entities: { link },
-}) => ({
+const mapStateToProps = ({ forms: { linkForm }, entities: { link } }) => ({
   linkForm,
   url: link.models.length > 0 ? [...link.models].shift().shortURL : null,
 });
@@ -54,7 +53,11 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
 });
 
-export default connect(mapStateToProps, {
-  saveEntityData,
-  resetForm: actions.reset,
-}, mergeProps)(Main);
+export default connect(
+  mapStateToProps,
+  {
+    saveEntityData,
+    resetForm: actions.reset,
+  },
+  mergeProps
+)(Main);

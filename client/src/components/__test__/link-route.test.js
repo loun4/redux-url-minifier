@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { mount } from 'enzyme';
 import RouterService from '../../utils/router-service';
@@ -16,7 +15,9 @@ beforeEach(() => {
 
 test('Create link', () => {
   const component = mount(subject, { context: { router: RouterService } });
-  expect(component.find('a').props().href).toBe('/myRoute?active=true&sort=desc');
+  expect(component.find('a').props().href).toBe(
+    '/myRoute?active=true&sort=desc'
+  );
 });
 
 test('Go to route on click', () => {
@@ -31,4 +32,3 @@ test('Switch to active class if route match', () => {
 
   expect(component.find('a').props().className).toBe('active');
 });
-

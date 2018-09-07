@@ -1,4 +1,3 @@
-
 import { mount } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -31,22 +30,26 @@ test('Render app', () => {
 });
 
 test('Render error on get', () => {
-  const component = renderer.create(buildSubject({
-    error: {
-      type: 'get',
-    },
-  }));
+  const component = renderer.create(
+    buildSubject({
+      error: {
+        type: 'get',
+      },
+    })
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Render error on save', () => {
-  const component = renderer.create(buildSubject({
-    error: {
-      type: 'save',
-    },
-  }));
+  const component = renderer.create(
+    buildSubject({
+      error: {
+        type: 'save',
+      },
+    })
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -55,13 +58,15 @@ test('Render error on save', () => {
 test('Call authenticate on componentDidMount if session is ready for auth', () => {
   const authenticate = jest.fn();
 
-  mount(buildSubject({
-    session: {
-      ...testStore.getState().session,
-      readyToAuthenticate: true,
-    },
-    authenticate,
-  }));
+  mount(
+    buildSubject({
+      session: {
+        ...testStore.getState().session,
+        readyToAuthenticate: true,
+      },
+      authenticate,
+    })
+  );
 
   expect(authenticate).toHaveBeenCalled();
 });
