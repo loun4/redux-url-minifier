@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line
 const request = require('supertest');
 const fs = require('fs');
 const path = require('path');
@@ -17,7 +17,7 @@ const start = async (t) => {
 
   const db = await Db.init();
 
-  /* eslint-disable no-param-reassign */
+  // eslint-disable-next-line
   t.context = {
     credentials: { login, password },
     app: request(server(db)),

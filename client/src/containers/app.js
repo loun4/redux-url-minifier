@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { authenticate, deauthenticate } from '../actions/session';
 import Header from '../components/header';
 
-/* eslint-disable import/first */
+// eslint-disable-next-line
 import 'react-table/react-table.css';
 import '../css/semantic-ui-css/semantic.min.css';
 import '../css/app.css';

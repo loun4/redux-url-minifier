@@ -5,7 +5,7 @@ import configureStore from '../store';
 import RouterProvider from './router-provider';
 import App from './app';
 import Main from './main';
-/* eslint-disable import/no-named-as-default */
+// eslint-disable-next-line
 import Admin from './admin';
 
 const store = configureStore();

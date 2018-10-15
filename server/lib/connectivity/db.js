@@ -14,7 +14,7 @@ const initializer = (db) => {
     db.addCollection('links', { unique: ['id'] });
   }
 
-  /* eslint-disable no-param-reassign */
+  // eslint-disable-next-line
   db.DbInsertError = DbInsertError;
   db.DbRemoveError = DbRemoveError;
   db.DbUpdateError = DbUpdateError;
@@ -22,7 +22,7 @@ const initializer = (db) => {
   return db;
 };
 
-/* eslint-disable consistent-return */
+// eslint-disable-next-line
 const connector = () => new Promise((resolve, reject) => {
   const dbFile = path.resolve(__dirname, `../../resources/${dbConf.file}`);
   if (!fs.existsSync(dbFile)) {
